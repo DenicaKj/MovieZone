@@ -15,7 +15,7 @@ public class Projection_Room {
     @Id
     @Column(name = "id_room", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_room;
+    Integer id_room;
     Integer number_of_seats;
     Integer projection_room_number;
     @ManyToOne

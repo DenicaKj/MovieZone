@@ -17,7 +17,7 @@ public class Projection {
     @Id
     @Column(name = "id_projection", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_projection;
+    Integer id_projection;
 
     LocalDate date_time_start;
     String type_of_technology;
