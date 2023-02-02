@@ -1,13 +1,43 @@
 package com.example.moviezone.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.Objects;
 
 @Getter
 @Setter
 @ToString
 @Entity
 public class Categories {
+    @Id
+    @Column(name = "id_category", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_category;
+    String name;
+    Integer extra_amount;
+
+    public Categories(String name, Integer extra_amount) {
+        this.name = name;
+        this.extra_amount = extra_amount;
+    }
+
+    public Categories() {
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Categories that = (Categories) o;
+        return Objects.equals(id_category, that.id_category) && Objects.equals(name, that.name) && Objects.equals(extra_amount, that.extra_amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_category, name, extra_amount);
+    }
 }
