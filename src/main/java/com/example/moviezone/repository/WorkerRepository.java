@@ -1,4 +1,7 @@
 package com.example.moviezone.repository;
 
-public class WorkerRepository {
+import com.example.moviezone.model.Worker;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface WorkerRepository extends JpaRepository<Worker,Integer> {
 }

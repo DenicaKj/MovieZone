@@ -1,4 +1,8 @@
 package com.example.moviezone.repository;
 
-public class ProjectionIsPlayedInRoomRepository {
+import com.example.moviezone.model.manytomany.ProjectionIsPlayedInRoom;
+import com.example.moviezone.model.manytomany.ProjectionIsPlayedInRoomId;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProjectionIsPlayedInRoomRepository extends JpaRepository<ProjectionIsPlayedInRoom, ProjectionIsPlayedInRoomId> {
 }

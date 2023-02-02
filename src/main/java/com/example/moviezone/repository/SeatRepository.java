@@ -1,4 +1,7 @@
 package com.example.moviezone.repository;
 
-public class SeatRepository {
+import com.example.moviezone.model.Seat;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SeatRepository extends JpaRepository<Seat,Integer> {
 }

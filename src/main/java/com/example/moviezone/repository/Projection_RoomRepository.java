@@ -1,4 +1,8 @@
 package com.example.moviezone.repository;
 
-public class Projection_RoomRepository {
+import com.example.moviezone.model.Projection;
+import com.example.moviezone.model.Projection_Room;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface Projection_RoomRepository extends JpaRepository<Projection_Room,Integer> {
 }
