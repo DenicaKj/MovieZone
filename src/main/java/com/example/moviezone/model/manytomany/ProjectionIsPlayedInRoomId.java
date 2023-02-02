@@ -2,8 +2,10 @@ package com.example.moviezone.model.manytomany;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class ProjectionIsPlayedInRoomId {
+public class ProjectionIsPlayedInRoomId implements Serializable {
     Integer id_projection;
     Integer id_room;
 }
