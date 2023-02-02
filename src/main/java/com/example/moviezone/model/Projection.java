@@ -26,5 +26,7 @@ public class Projection {
     Film film;
     @ManyToOne
     Event event;
+    @ManyToOne
+    Discount discount;
 
 }
