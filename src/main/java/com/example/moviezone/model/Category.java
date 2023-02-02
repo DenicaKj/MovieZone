@@ -11,6 +11,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
+@Table(name = "categories")
 public class Category {
     @Id
     @Column(name = "id_category", nullable = false)
