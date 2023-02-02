@@ -11,18 +11,16 @@ import lombok.ToString;
 @Setter
 @ToString
 @RequiredArgsConstructor
-
-@Table(name = "`cinema_plays_film`")
-
-@IdClass(CinemaPlaysFilmId.class)
-public class CinemaPlaysFilm {
-    @Id
-    @Column(name = "id_cinema")
-    Integer id_cinema;
-
-
+@Table(name = "`customer_rates_film`")
+@IdClass(CustomerRatesFilmId.class)
+public class CustomerRatesFilm {
 
     @Id
-    @Column(name = "id_film")
+    @Column(name ="id_customer")
+    Integer id_customer;
+
+    @Id
+    @Column(name ="id_film")
     Integer id_film;
+
 }
