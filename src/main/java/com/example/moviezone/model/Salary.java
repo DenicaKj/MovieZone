@@ -11,17 +11,17 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-@Table(name = "events")
-public class Event {
-
+@Table(name = "salaries")
+public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id_event;
+    Integer id_salary;
 
-    String theme;
-    String duration;
-    String repeating;
+    Integer sum;
 
-    LocalDate start_date;
+    LocalDate date_from;
+    LocalDate date_to;
 
+    @ManyToOne
+    Worker worker;
 }

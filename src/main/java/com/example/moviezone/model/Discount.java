@@ -11,17 +11,15 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-@Table(name = "events")
-public class Event {
-
+@Table(name = "discounts")
+public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id_event;
+    Integer id_discount;
 
-    String theme;
-    String duration;
-    String repeating;
+    LocalDate validity;
 
-    LocalDate start_date;
-
+    String code;
+    String type;
+    Integer percent;
 }
