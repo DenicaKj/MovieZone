@@ -29,5 +29,6 @@ public class Work_Hours_Weekly {
     Boolean check_in;
 
     @ManyToOne
+    @JoinColumn(name = "id_worker")
     Worker worker;
 }

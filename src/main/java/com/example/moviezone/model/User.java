@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.management.relation.Role;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -28,17 +29,10 @@ public class User implements UserDetails {
     String address;
     String contact_number;
     String username;
-    LocalDateTime date_created;
+    LocalDate date_created;
 
-    private boolean isAccountNonExpired = true;
-    private boolean isAccountNonLocked = true;
-    private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = true;
 
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
-
-    public User(Integer id_user, String password, String first_name, String last_name, String address, String contact_number, String username, LocalDateTime date_created, Role role) {
+    public User(Integer id_user, String password, String first_name, String last_name, String address, String contact_number, String username, LocalDate date_created) {
         this.id_user = id_user;
         this.password = password;
         this.first_name = first_name;
@@ -47,7 +41,6 @@ public class User implements UserDetails {
         this.contact_number = contact_number;
         this.username = username;
         this.date_created = date_created;
-        this.role = role;
     }
 
     public User() {
@@ -62,22 +55,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isAccountNonExpired;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isAccountNonLocked;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isCredentialsNonExpired;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return isEnabled;
+        return true;
     }
 
 }

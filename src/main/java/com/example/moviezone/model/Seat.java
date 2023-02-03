@@ -17,8 +17,10 @@ public class Seat {
     Integer id_seat;
     Integer seat_number;
     @ManyToOne
+    @JoinColumn(name = "id_room")
     Projection_Room projection_room;
     @ManyToOne
+    @JoinColumn(name = "id_category")
     Category category;
 
 }

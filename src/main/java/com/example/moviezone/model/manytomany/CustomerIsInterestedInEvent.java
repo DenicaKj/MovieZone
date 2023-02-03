@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "`customer_is_interested_in_event`")
-@IdClass(CinemaPlaysFilmId.class)
+@IdClass(CustomerIsInterestedInEventId.class)
 public class CustomerIsInterestedInEvent {
     @Id
     @Column(name = "id_customer")

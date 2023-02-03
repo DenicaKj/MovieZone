@@ -23,5 +23,6 @@ public class Salary {
     LocalDate date_to;
 
     @ManyToOne
+    @JoinColumn(name = "id_worker")
     Worker worker;
 }

@@ -19,6 +19,7 @@ public class Projection_Room {
     Integer number_of_seats;
     Integer projection_room_number;
     @ManyToOne
+    @JoinColumn(name = "id_cinema")
     Cinema cinema;
 
 }

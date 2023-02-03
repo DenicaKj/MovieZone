@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,9 +20,10 @@ public class Ticket {
     Integer id_ticket;
 
     Integer price;
-    LocalDateTime date_reserved;
+    LocalDate date_reserved;
 
     @ManyToOne
+    @JoinColumn(name = "id_customer")
     Customer customer;
 
 

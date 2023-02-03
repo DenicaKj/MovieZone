@@ -23,10 +23,13 @@ public class Projection {
     String type_of_technology;
     LocalDate date_time_end;
     @ManyToOne
+    @JoinColumn(name = "id_film")
     Film film;
     @ManyToOne
+    @JoinColumn(name = "id_event")
     Event event;
     @ManyToOne
+    @JoinColumn(name = "id_discount")
     Discount discount;
 
 }

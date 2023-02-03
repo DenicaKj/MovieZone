@@ -23,7 +23,7 @@ public class Film {
     String actors;
     String genre;
     String age_category;
-
+    String url;
     String director;
     LocalDate start_date;
     LocalDate end_date;

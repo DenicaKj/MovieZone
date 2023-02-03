@@ -22,7 +22,8 @@ public class Worker extends User {
     String work_hours_from;
     String work_hours_to;
 
-    @ManyToOne()
+    @ManyToOne
+    @JoinColumn(name = "id_cinema")
     Cinema cinema;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
