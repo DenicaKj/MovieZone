@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Getter
@@ -20,5 +24,9 @@ public class Worker extends User {
 
     @ManyToOne()
     Cinema cinema;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(Role.ROLE_ADMIN);
+    }
 
 }

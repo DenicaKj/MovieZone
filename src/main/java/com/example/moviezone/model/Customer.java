@@ -6,6 +6,10 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Getter
@@ -18,5 +22,9 @@ public class Customer extends User{
 
     Integer points;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(Role.ROLE_ADMIN);
+    }
 
 }
