@@ -3,6 +3,7 @@ package com.example.moviezone.service.Impl;
 import com.example.moviezone.model.Customer;
 import com.example.moviezone.model.User;
 import com.example.moviezone.model.Worker;
+import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
 import com.example.moviezone.model.exceptions.UserNotFoundException;
 import com.example.moviezone.repository.UserRepository;
 import com.example.moviezone.service.UserService;
@@ -38,7 +39,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(String first_name, String last_name, String username, String email, String number, String password, String role) {
+    public User register(String first_name, String last_name, String username, String email, String number, String password,String repeatedPassword, String role) {
+       if(!password.equals(repeatedPassword))
+           throw new PasswordsDoNotMatchException();
+       else
         if(role.equals("worker"))
         {
             return userRepository.save(new Worker(passwordEncoder.encode(password),first_name,last_name,username,email,number));
