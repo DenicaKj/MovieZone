@@ -32,4 +32,8 @@ public class Event {
         this.repeating = repeating;
         this.start_date = start_date;
     }
+
+    public Event() {
+
+    }
 }

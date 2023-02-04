@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Add New Event</h1>
+        </div>
+    </section>
 
-</body>
-</html>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/home/addE" method="POST">
+                    <div class="form-group">
+                        <label for="theme">Theme</label>
+                        <input type="text"
+                               class="form-control"
+                               id="theme"
+                               name="theme"
+                               required
+                               placeholder="Enter theme">
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration</label>
+                        <input type="text"
+                               class="form-control"
+                               id="duration"
+                               name="duration"
+                               placeholder="Duration">
+                    </div>
+                    <div class="form-group">
+                        <label for="repeating">Repeating</label>
+                        <input type="text"
+                               class="form-control"
+                               id="repeating"
+                               name="repeating"
+                               placeholder="repeating">
+                    </div>
+                    <div class="form-group">
+                        <label for="start_date">Start Date</label>
+                        <input type="date"
+                               class="form-control"
+                               id="start_date"
+                               name="start_date"
+                              >
+                    </div>
+
+                    <button id="submit" type="submit" class="btn btn-primary">Add Event</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</th:block>

@@ -41,4 +41,8 @@ public class Film {
         this.start_date = start_date;
         this.end_date = end_date;
     }
+
+    public Film() {
+
+    }
 }

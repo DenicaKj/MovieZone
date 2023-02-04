@@ -1,10 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Add New Film</h1>
+        </div>
+    </section>
 
-</body>
-</html>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/home/addF" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               required
+                               placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration</label>
+                        <input type="number"
+                               class="form-control"
+                               id="duration"
+                               name="duration"
+                               placeholder="Duration">
+                    </div>
+                    <div class="form-group">
+                        <label for="actors">Actors</label>
+                        <input type="text"
+                               class="form-control"
+                               id="actors"
+                               name="actors"
+                               placeholder="Actors">
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Genre</label>
+                        <input type="text"
+                               class="form-control"
+                               id="genre"
+                               name="genre"
+                               placeholder="Genre">
+                    </div>   <div class="form-group">
+                    <label for="age_category">Age Category</label>
+                    <input type="text"
+                           class="form-control"
+                           id="age_category"
+                           name="age_category"
+                           placeholder="Age Category">
+                </div>
+                    <div class="form-group">
+                    <label for="url">Url</label>
+                    <input type="url"
+                           class="form-control"
+                           id="url"
+                           name="url"
+                           >
+                </div>
+                    <div class="form-group">
+                    <label for="director">Director</label>
+                    <input type="text"
+                           class="form-control"
+                           id="director"
+                           name="director"
+                           placeholder="Director">
+                </div>
+                    <div class="form-group">
+                        <label for="start_date">Start Date</label>
+                        <input type="date"
+                               class="form-control"
+                               id="start_date"
+                               name="start_date"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="end_date">End Date</label>
+                        <input type="date"
+                               class="form-control"
+                               id="end_date"
+                               name="end_date"
+                        >
+                    </div>
+
+                    <button id="submit" type="submit" class="btn btn-primary">Add Film</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</th:block>
