@@ -1,10 +1,11 @@
 package com.example.moviezone.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -17,9 +18,9 @@ public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id_ticket;
+    int id_ticket;
 
-    Integer price;
+    long price;
     LocalDate date_reserved;
 
     @ManyToOne
