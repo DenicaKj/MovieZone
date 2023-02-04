@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -25,6 +26,11 @@ public class Worker extends User {
     @ManyToOne
     @JoinColumn(name = "id_cinema")
     Cinema cinema;
+
+//    public Worker(String password, String first_name, String last_name, String address, String contact_number, String username) {
+//        super(password, first_name, last_name, address, contact_number, username);
+//    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(Role.ROLE_ADMIN);

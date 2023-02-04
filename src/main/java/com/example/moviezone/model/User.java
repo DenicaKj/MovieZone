@@ -44,6 +44,16 @@ public class User implements UserDetails {
         this.date_created = date_created;
     }
 
+    public User(String password, String first_name, String last_name, String address, String contact_number, String username) {
+        this.password = password;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.address = address;
+        this.contact_number = contact_number;
+        this.username = username;
+        this.date_created=LocalDate.now();
+    }
+
     public User() {
 
     }
