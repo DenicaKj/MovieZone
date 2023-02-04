@@ -2,7 +2,6 @@ package com.example.moviezone.web;
 
 
 import com.example.moviezone.model.Customer;
-import com.example.moviezone.model.Film;
 import com.example.moviezone.model.User;
 import com.example.moviezone.model.exceptions.UserNotFoundException;
 import com.example.moviezone.service.*;
@@ -26,13 +25,15 @@ private final UserService userService;
 private final ProjectionService projectionService;
 private final EventService eventService;
 private final TicketService ticketService;
+private final WorkerService workerService;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService) {
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService) {
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
         this.eventService = eventService;
         this.ticketService = ticketService;
+        this.workerService = workerService;
     }
 
     @GetMapping({"/","/home"})
@@ -168,4 +169,11 @@ private final TicketService ticketService;
         return "redirect:/home";
     }
 
+    @GetMapping("/workers")
+    public String getWorkersPage(Model model)
+    {
+        model.addAttribute("workers",workerService.findAllWorkers());
+        model.addAttribute("bodyContent", "workers");
+        return "master-template";
+    }
 }
