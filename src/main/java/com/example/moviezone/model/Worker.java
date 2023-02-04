@@ -27,9 +27,13 @@ public class Worker extends User {
     @JoinColumn(name = "id_cinema")
     Cinema cinema;
 
-//    public Worker(String password, String first_name, String last_name, String address, String contact_number, String username) {
-//        super(password, first_name, last_name, address, contact_number, username);
-//    }
+    public Worker(String password, String first_name, String last_name, String address, String contact_number, String username) {
+        super(password, first_name, last_name, address, contact_number, username);
+    }
+
+    public Worker() {
+
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
