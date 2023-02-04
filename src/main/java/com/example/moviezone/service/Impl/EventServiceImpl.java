@@ -5,6 +5,7 @@ import com.example.moviezone.repository.EventRepository;
 import com.example.moviezone.service.EventService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,5 +19,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> findAllEvents() {
         return eventRepository.findAll();
+    }
+
+    @Override
+    public Event save(LocalDate start_date, String theme, String duration, String repeating) {
+        return eventRepository.save(new Event(theme,duration,repeating,start_date));
     }
 }

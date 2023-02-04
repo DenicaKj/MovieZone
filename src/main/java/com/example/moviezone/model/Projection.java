@@ -32,4 +32,10 @@ public class Projection {
     @JoinColumn(name = "id_discount")
     Discount discount;
 
+    public Projection(LocalDate date_time_start, String type_of_technology, LocalDate date_time_end, Film film) {
+        this.date_time_start = date_time_start;
+        this.type_of_technology = type_of_technology;
+        this.date_time_end = date_time_end;
+        this.film = film;
+    }
 }

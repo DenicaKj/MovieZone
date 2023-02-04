@@ -1,12 +1,12 @@
 package com.example.moviezone.web;
 
 
+import com.example.moviezone.model.Customer;
+import com.example.moviezone.model.Film;
 import com.example.moviezone.model.User;
 import com.example.moviezone.model.exceptions.UserNotFoundException;
-import com.example.moviezone.service.EventService;
-import com.example.moviezone.service.FilmService;
-import com.example.moviezone.service.ProjectionService;
-import com.example.moviezone.service.UserService;
+import com.example.moviezone.service.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,15 +25,17 @@ private final FilmService filmService;
 private final UserService userService;
 private final ProjectionService projectionService;
 private final EventService eventService;
+private final TicketService ticketService;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService) {
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService) {
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
         this.eventService = eventService;
+        this.ticketService = ticketService;
     }
 
-    @GetMapping
+    @GetMapping({"/","/home"})
     public String getHomePage(Model model) {
         model.addAttribute("bodyContent", "home");
         return "master-template";
@@ -103,6 +105,67 @@ private final EventService eventService;
         model.addAttribute("events",eventService.findAllEvents());
         model.addAttribute("bodyContent","events");
         return "master-template";
+    }
+    @GetMapping("/myTickets")
+    public  String getMyTicketsPage(Model model,HttpSession session)
+    {
+        model.addAttribute("tickets",ticketService.findAllByCustomer((Customer) session.getAttribute("user")));
+        model.addAttribute("bodyContent","myTickets");
+        return "master-template";
+    }
+    @GetMapping("/addProjection")
+    public  String getAddProjectionPage(Model model)
+    {
+        model.addAttribute("films",filmService.findAllFilms());
+        model.addAttribute("bodyContent","addProjection");
+        return "master-template";
+    }
+    @GetMapping("/addEvent")
+    public  String getAddEventPage(Model model)
+    {
+        model.addAttribute("bodyContent","addEvent");
+        return "master-template";
+    }
+    @GetMapping("/addFilm")
+    public  String getAddFilmPage(Model model)
+    {
+        model.addAttribute("bodyContent","addFilm");
+        return "master-template";
+    }
+
+    @PostMapping("/addP")
+    public String saveProjection(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date_time_start,
+                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date_time_end,
+                                 @RequestParam String type_of_technology,
+                                 @RequestParam Integer id_film)
+    {
+        projectionService.save(date_time_start,date_time_end,type_of_technology,id_film);
+         return "redirect:/home";
+    }
+    @PostMapping("/addE")
+    public String saveEvent(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
+                                 @RequestParam String theme,
+                                 @RequestParam String duration,
+                            @RequestParam String repeating)
+    {
+        eventService.save(start_date,theme,duration,repeating);
+        return "redirect:/home";
+    }
+    @PostMapping("/addF")
+    public String saveFilm(
+                            @RequestParam String name,
+                            @RequestParam Integer duration,
+                            @RequestParam String actors,
+                           @RequestParam String genre,
+                           @RequestParam String age_category,
+                           @RequestParam String url,
+                           @RequestParam String director,
+                            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
+                            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end_date
+                           )
+    {
+        filmService.save(name,duration,actors,genre,age_category,url,director,start_date,end_date);
+        return "redirect:/home";
     }
 
 }

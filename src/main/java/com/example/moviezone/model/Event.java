@@ -26,4 +26,10 @@ public class Event {
 
     LocalDate start_date;
 
+    public Event(String theme, String duration, String repeating, LocalDate start_date) {
+        this.theme = theme;
+        this.duration = duration;
+        this.repeating = repeating;
+        this.start_date = start_date;
+    }
 }
