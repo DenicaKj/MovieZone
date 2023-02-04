@@ -5,6 +5,7 @@ import com.example.moviezone.repository.ProjectionRepository;
 import com.example.moviezone.service.ProjectionService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,4 +20,10 @@ public class ProjectionServiceImpl implements ProjectionService {
     public List<Projection> findAllProjections() {
         return projectionRepository.findAll();
     }
+
+    @Override
+    public List<Projection> findAllAvailableProjections(LocalDate date) {
+        return projectionRepository.findAllByDate_time_startBefore(date);
+    }
+
 }
