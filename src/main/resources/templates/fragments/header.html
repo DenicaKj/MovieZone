@@ -4,7 +4,71 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Varela+Round");
+    html {
+        box-sizing: border-box;
+    }
 
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+        padding: 0;
+        margin: 0;
+        letter-spacing: 1.1px;
+    }
+
+    body,
+    html {
+
+        height: 10%;
+        background: #1c1d22;
+        font-family: "Varela Round", sans-serif;
+    }
+
+    .menu {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        /*height: 100vh;*/
+
+    }
+
+    .menu ul li{
+        width: 150px;
+        height: 50px;
+        transition: background-position-x 0.9s linear;
+        text-align: center;
+        list-style: none;
+    }
+    .menu ul li a {
+        font-size: 22px;
+        color: #777;
+        text-decoration: none;
+        transition: all 0.45s;
+    }
+    .menu-left{
+        display: flex;
+    }
+    .menu-right{
+        display: flex;
+    }
+
+</style>
+<body>
+<nav class="menu">
+    <ul class="menu-left">
+        <li class="begin"><a href="#!">MovieZone</a></li>
+        <li class="begin"><a href="#!">Филмови</a></li>
+        <li class="begin"><a href="#!">Програма</a></li>
+        <li class="begin"><a href="#!">Настани</a></li>
+        <li class="begin"><a href="#!">Faq</a></li>
+    </ul>
+    <ul class="menu-right">
+        <li class="reg"><a href="#!">Најава</a></li>
+        <li class="reg"><a href="#!">Регистрација</a></li>
+    </ul>
+</nav>
 </body>
 </html>
