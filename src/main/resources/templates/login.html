@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<div>
+    <form th:method="POST" th:action="@{/login}">
+        <div class="container">
+            <form class="form-signin mt-xl-5" method="post" action="/login">
+                <h2 class="form-signin-heading">SIGN IN</h2>
+                <p>
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus=""/>
+                </p>
+                <p>
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required=""/>
+                </p>
+            </form>
+            <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </div>
+    </form>
+    <a href="/register" class="btn btn-block btn-light">Register Here!</a>
+</div>
