@@ -55,6 +55,7 @@ private final CustomerRatesFilmService customerRatesFilmService;
         model.addAttribute("film", film);
         List<String> genres= List.of(film.getGenre().split(","));
         double r=customerRatesFilmService.avg_rating(film.getId_film());
+        model.addAttribute("rating",r);
         model.addAttribute("genres", genres);
         model.addAttribute("bodyContent", "film");
 

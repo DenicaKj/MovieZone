@@ -11,9 +11,17 @@
     }
     .main{
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: flex-start;
         margin-left: 100px;
+    }
+    .slika{
+        margin-right: 100px;
+    }
+    img{
+        width: 300px;
+        height: 350px;
+        border-radius: 20px;
     }
 </style>
 <div xmlns:th="http://www.thymeleaf.org">
@@ -34,8 +42,14 @@
             <h4 style="color: white"> Режисер:
                 <span th:text="${film.director}"></span>
             </h4>
+            <h4 style="color: white">
+                <span th:text="${rating}"></span>
+                <span>/5</span>
+            </h4>
         </div>
+    <div class="slika">
+        <img th:src="@{${film.getUrl()}}"/>
+    </div>
 
-</div>
 </div>
 </div>
