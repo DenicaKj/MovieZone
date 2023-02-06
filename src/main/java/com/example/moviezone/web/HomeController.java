@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -27,14 +26,16 @@ private final ProjectionService projectionService;
 private final EventService eventService;
 private final TicketService ticketService;
 private final WorkerService workerService;
+private final CustomerRatesFilmService customerRatesFilmService;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService) {
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService) {
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
         this.eventService = eventService;
         this.ticketService = ticketService;
         this.workerService = workerService;
+        this.customerRatesFilmService = customerRatesFilmService;
     }
 
     @GetMapping
@@ -48,9 +49,12 @@ private final WorkerService workerService;
     }
     @GetMapping("/getFilm/{id}")
     public String getFilm(@PathVariable Long id, Model model) {
-        Optional<Film> film=filmService.getFilmById(id);
+        Film film=filmService.getFilmById(id).get();
         model.addAttribute("film", film);
-        model.addAttribute("bodyContent", "home");
+        List<String> genres= List.of(film.getGenre().split(","));
+        double r=customerRatesFilmService.avg_rating(film.getId_film());
+        model.addAttribute("genres", genres);
+        model.addAttribute("bodyContent", "film");
 
         return "master-template";
     }

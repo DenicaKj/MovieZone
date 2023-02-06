@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    .genres{
+        width: 100px;
+        text-align: center;
+        background-color: #ff5019;
+        border-radius: 20px;
+        color: #111111;
+        font-size: 20px;
+        font-weight: 200;
+        margin: 20px;
+    }
+    .main{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 100px;
+    }
+</style>
+<div xmlns:th="http://www.thymeleaf.org">
+<div class="main">
+        <div class="container-1">
+            <h1 style="color: white; font-weight: 600" class="name" th:text="${film.getName()}">
+            </h1>
+            <div th:each="genre : ${genres}" class="genres">
+                <span th:text="${genre}"></span>
+            </div>
 
-</body>
-</html>
+        </div>
+
+</div>
+</div>
+</div>
