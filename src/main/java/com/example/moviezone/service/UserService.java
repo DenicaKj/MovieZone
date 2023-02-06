@@ -1,5 +1,6 @@
 package com.example.moviezone.service;
 
+import com.example.moviezone.model.Role;
 import com.example.moviezone.model.User;
 
 import java.util.List;
@@ -9,6 +10,6 @@ public interface UserService {
     User findById(Integer user_id);
     User findByUsername(String username);
 
-  User register(String first_name, String last_name,String username, String email, String number, String password,String repeatedPassword, String role);
+  User register(String first_name, String last_name,String username, String email, String number, String password,String repeatedPassword, Role role);
     User login(String username,String password);
 }

@@ -3,7 +3,9 @@ package com.example.moviezone.web;
 
 import com.example.moviezone.model.Customer;
 import com.example.moviezone.model.Film;
+import com.example.moviezone.model.Role;
 import com.example.moviezone.model.User;
+import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
 import com.example.moviezone.model.exceptions.UserNotFoundException;
 import com.example.moviezone.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -92,15 +94,24 @@ private final CustomerRatesFilmService customerRatesFilmService;
 
     }
 
-    @PostMapping("register")
-    public String register(@RequestParam String username, @RequestParam String first_name, @RequestParam String last_name,
-                         @RequestParam String password, @RequestParam String repeatedPassword,
-                         @RequestParam String email, @RequestParam String number,
-                         @RequestParam String role)
+    @PostMapping()
+    public String register(@RequestParam String username,
+                           @RequestParam String first_name,
+                           @RequestParam String last_name,
+                           @RequestParam String password,
+                           @RequestParam String repeatedPassword,
+                           @RequestParam String email,
+                           @RequestParam String number,
+                           @RequestParam Role role)
     {
-        User user = null;
-            user=userService.register(first_name,last_name,username,email,number,password,repeatedPassword,role);
+        try {
+           User user=userService.register(first_name,last_name,username,email,number,password,repeatedPassword,role);
             return "redirect:/login";
+        }catch (PasswordsDoNotMatchException exception)
+        {
+            return "redirect:/register?error=" + exception.getMessage();
+        }
+
     }
 
     @GetMapping("/films")
