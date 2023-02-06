@@ -45,4 +45,44 @@ public class Film {
     public Film() {
 
     }
+
+    public Integer getId_film() {
+        return id_film;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getAge_category() {
+        return age_category;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public LocalDate getStart_date() {
+        return start_date;
+    }
+
+    public LocalDate getEnd_date() {
+        return end_date;
+    }
 }

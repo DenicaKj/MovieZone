@@ -2,22 +2,23 @@ package com.example.moviezone.web;
 
 
 import com.example.moviezone.model.Customer;
+import com.example.moviezone.model.Film;
 import com.example.moviezone.model.User;
 import com.example.moviezone.model.exceptions.UserNotFoundException;
 import com.example.moviezone.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping({"/","/home"})
 public class HomeController {
 
 private final FilmService filmService;
@@ -36,9 +37,21 @@ private final WorkerService workerService;
         this.workerService = workerService;
     }
 
-    @GetMapping({"/","/home"})
+    @GetMapping
     public String getHomePage(Model model) {
+        List<Film> films=filmService.findAllFilms();
+        films=films.stream().limit(5).collect(Collectors.toList());
+        model.addAttribute("films", films);
         model.addAttribute("bodyContent", "home");
+
+        return "master-template";
+    }
+    @GetMapping("/getFilm/{id}")
+    public String getFilm(@PathVariable Long id, Model model) {
+        Optional<Film> film=filmService.getFilmById(id);
+        model.addAttribute("film", film);
+        model.addAttribute("bodyContent", "home");
+
         return "master-template";
     }
 
@@ -96,7 +109,7 @@ private final WorkerService workerService;
     @GetMapping("/projections")
     public String getProjectionsPage(Model model)
     {
-        model.addAttribute("projections",projectionService.findAllAvailableProjections(LocalDate.now()));
+        model.addAttribute("projections",projectionService.findAllProjections());
         model.addAttribute("bodyContent","projections");
         return "master-template";
     }

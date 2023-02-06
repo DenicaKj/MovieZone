@@ -38,4 +38,7 @@ public class Projection {
         this.date_time_end = date_time_end;
         this.film = film;
     }
+
+    public Projection() {
+    }
 }

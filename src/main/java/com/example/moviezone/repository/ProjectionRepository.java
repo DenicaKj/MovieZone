@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ProjectionRepository extends JpaRepository<Projection,Integer> {
     //    NOTE: CHANGE THIS WITH MATERIALIZED VIEW
-    List<Projection> findAllByDate_time_startBefore(LocalDate datum);
+    //List<Projection> findAllBydate_time_startBefore(LocalDate datum);
 }

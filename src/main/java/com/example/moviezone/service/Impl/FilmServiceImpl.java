@@ -6,7 +6,9 @@ import com.example.moviezone.service.FilmService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmServiceImpl implements FilmService {
@@ -25,4 +27,10 @@ public class FilmServiceImpl implements FilmService {
     public Film save(String name, Integer duration, String actors, String genre, String age_category, String url, String director, LocalDate start_date, LocalDate end_date) {
         return filmRepository.save(new Film(name,duration,actors,genre,age_category,url,director,start_date,end_date));
     }
+
+    @Override
+    public Optional<Film> getFilmById(Long id) {
+        return filmRepository.findAllById(Collections.singleton(id.intValue())).stream().findFirst();
+    }
+
 }

@@ -24,10 +24,6 @@ public class ProjectionServiceImpl implements ProjectionService {
         return projectionRepository.findAll();
     }
 
-    @Override
-    public List<Projection> findAllAvailableProjections(LocalDate date) {
-        return projectionRepository.findAllByDate_time_startBefore(date);
-    }
 
     @Override
     public Projection save(LocalDate date_time_start, LocalDate date_time_end, String type_of_technology, Integer id_film) {
