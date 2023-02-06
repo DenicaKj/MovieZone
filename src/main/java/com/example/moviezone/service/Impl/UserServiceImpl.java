@@ -55,9 +55,9 @@ public class UserServiceImpl implements UserService {
 
        if(role.equals(Role.ROLE_ADMIN))
         {
-            Worker worker=new Worker(passwordEncoder.encode(password),first_name,last_name,username,email,number);
-            workerRepository.save(worker);
-            return userRepository.save(worker);
+            User user= new User(passwordEncoder.encode(password),first_name,last_name,username,email,number);
+            workerRepository.save((Worker) user);
+            return userRepository.save(user);
         }
         else
        {

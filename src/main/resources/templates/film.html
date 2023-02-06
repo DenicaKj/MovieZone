@@ -24,7 +24,16 @@
             <div th:each="genre : ${genres}" class="genres">
                 <span th:text="${genre}"></span>
             </div>
-
+            <h4 style="color: white;"> Возрасна категорија:
+                <span th:text="${film.age_category}"></span>
+            </h4>
+            <h4 style="color: white"> Траење на филмот:
+                <span th:text="${film.duration}"></span>
+                минути
+            </h4>
+            <h4 style="color: white"> Режисер:
+                <span th:text="${film.director}"></span>
+            </h4>
         </div>
 
 </div>
