@@ -195,6 +195,7 @@
     }
 </style>
 <div xmlns:th="http://www.thymeleaf.org">
+    <h1 style="color: white">Нови Филмови</h1>
 <div class="main">
 <div th:each="film : ${films}" class="container">
     <div class="card">
@@ -217,6 +218,32 @@
             </form>
 
 
+        </div>
+    </div>
+</div>
+
+</div>
+    <h1 style="color: white">Следни Настани:</h1>
+    <div class="main">
+    <div th:each="event: ${events}" class="container">
+    <div class="card">
+        <div class="imgBx">
+            <img th:src="@{${event.getImg_url()}}"/>
+        </div>
+        <div class="contentBx">
+            <h2  th:text="${event.getTheme()}"></h2>
+            <div class="size">
+                <h3>Start Date :</h3>
+                <span th:text="${event.getStart_date()}"></span>
+            </div>
+            <div class="color">
+                <h3>Duration:</h3>
+                <span th:text="${event.getDuration()}"></span>
+            </div>
+            <form th:action="@{'/home/getFilm/{id}' (id=${event.getId_event()})}"
+                  th:method="GET">
+                <button class="button" type="submit">Details</button>
+            </form>
         </div>
     </div>
 </div>

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface EventService {
     List<Event> findAllEvents();
-    Event save(LocalDate start_date,String theme,String duration,String repeating);
+    Event save(LocalDate start_date,String theme,String duration,String repeating,String url);
 }

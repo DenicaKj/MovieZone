@@ -1,10 +1,7 @@
 package com.example.moviezone.web;
 
 
-import com.example.moviezone.model.Customer;
-import com.example.moviezone.model.Film;
-import com.example.moviezone.model.Role;
-import com.example.moviezone.model.User;
+import com.example.moviezone.model.*;
 import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
 import com.example.moviezone.model.exceptions.UserNotFoundException;
 import com.example.moviezone.service.*;
@@ -44,7 +41,9 @@ private final CustomerRatesFilmService customerRatesFilmService;
     public String getHomePage(Model model) {
         List<Film> films=filmService.findAllFilms();
         films=films.stream().limit(5).collect(Collectors.toList());
+        List <Event> events=eventService.findAllEvents().stream().limit(5).collect(Collectors.toList());
         model.addAttribute("films", films);
+        model.addAttribute("events",events);
         model.addAttribute("bodyContent", "home");
 
         return "master-template";
@@ -176,9 +175,10 @@ private final CustomerRatesFilmService customerRatesFilmService;
     public String saveEvent(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start_date,
                                  @RequestParam String theme,
                                  @RequestParam String duration,
+                                @RequestParam String img_url,
                             @RequestParam String repeating)
     {
-        eventService.save(start_date,theme,duration,repeating);
+        eventService.save(start_date,theme,duration,repeating,img_url);
         return "redirect:/home";
     }
     @PostMapping("/addF")

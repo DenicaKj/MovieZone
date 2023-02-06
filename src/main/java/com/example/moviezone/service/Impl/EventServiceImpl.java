@@ -22,7 +22,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event save(LocalDate start_date, String theme, String duration, String repeating) {
-        return eventRepository.save(new Event(theme,duration,repeating,start_date));
+    public Event save(LocalDate start_date, String theme, String duration, String repeating,String img_url) {
+        return eventRepository.save(new Event(theme,duration,repeating,start_date,img_url));
     }
 }
