@@ -198,18 +198,21 @@
     <div class="main">
         <div th:each="event : ${events}" class="container">
             <div class="card">
-<!--                <div class="imgBx">-->
-<!--&lt;!&ndash;                    <img th:src="@{${film.getUrl()}}"/>&ndash;&gt;-->
-<!--                </div>-->
+                <div class="imgBx">
+                    <img th:src="@{${event.img_url}}"/>
+                </div>
                 <div class="contentBx">
-                    <h2  th:text="${event.theme()}"></h2>
+                    <h2  th:text="${event.theme}"></h2>
                     <div class="size">
                         <h3>Duration :</h3>
                         <span th:text="${event.getDuration()}"></span>
                     </div>
-
-
+                    <form th:action="@{'/home/getFilm/{id}' (id=${event.getId_event()})}"
+                          th:method="GET">
+                        <button class="button" type="submit">Details</button>
+                    </form>
                 </div>
+
             </div>
         </div>
     </div>
