@@ -27,4 +27,9 @@ public class CinemaOrganizesEvent {
     @Column(name = "id_event")
     @Id
     Integer id_event;
+
+    public CinemaOrganizesEvent(Integer id_cinema, Integer id_event) {
+        this.id_cinema=id_cinema;
+        this.id_event=id_event;
+    }
 }

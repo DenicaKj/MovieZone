@@ -3,7 +3,6 @@ package com.example.moviezone.web;
 
 import com.example.moviezone.model.*;
 import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
-import com.example.moviezone.model.exceptions.UserNotFoundException;
 import com.example.moviezone.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -26,8 +25,10 @@ private final EventService eventService;
 private final TicketService ticketService;
 private final WorkerService workerService;
 private final CustomerRatesFilmService customerRatesFilmService;
+private final CinemaService cinemaService;
+private final CinemaOrganizesEventService cinemaOrganizesEventService;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService) {
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService) {
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
@@ -35,6 +36,8 @@ private final CustomerRatesFilmService customerRatesFilmService;
         this.ticketService = ticketService;
         this.workerService = workerService;
         this.customerRatesFilmService = customerRatesFilmService;
+        this.cinemaService = cinemaService;
+        this.cinemaOrganizesEventService = cinemaOrganizesEventService;
     }
 
     @GetMapping
@@ -151,6 +154,8 @@ private final CustomerRatesFilmService customerRatesFilmService;
         model.addAttribute("bodyContent","addProjection");
         return "master-template";
     }
+
+
     @GetMapping("/addEvent")
     public  String getAddEventPage(Model model)
     {
@@ -207,4 +212,22 @@ private final CustomerRatesFilmService customerRatesFilmService;
         model.addAttribute("bodyContent", "workers");
         return "master-template";
     }
+
+    @GetMapping("/addEventToCinema")
+    public  String getCinemaOrganizesEventPage(Model model)
+    {
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+        model.addAttribute("events",eventService.findAllEvents());
+        model.addAttribute("bodyContent","addEventToCinema");
+        return "master-template";
+    }
+    @PostMapping("/addCinemaOrganizesEvent")
+    public String saveCinemaOrganizesEvent(@RequestParam Integer id_cinema,
+                                           @RequestParam Integer id_event)
+    {
+
+       cinemaOrganizesEventService.save(id_cinema,id_event);
+        return "redirect:/home";
+    }
+
 }
