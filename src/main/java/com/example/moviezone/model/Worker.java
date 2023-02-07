@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -29,6 +30,19 @@ public class Worker extends User {
 
     public Worker(String password, String first_name, String last_name, String address, String contact_number, String username) {
         super(password, first_name, last_name, address, contact_number, username);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Worker worker = (Worker) o;
+        return id_user!=null && Objects.equals(id_user, worker.id_user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash();
     }
 
     public Worker() {

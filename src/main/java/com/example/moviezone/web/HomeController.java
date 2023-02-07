@@ -76,21 +76,23 @@ private final CustomerRatesFilmService customerRatesFilmService;
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username,@RequestParam String password,Model model, HttpSession session)
+    public String login(@RequestParam String username,
+                        @RequestParam String password,Model model, HttpSession session)
     {
-        User user = null;
-        try {
-            user=userService.login(username,password);
-            session.setAttribute("sessionUser",user);
-            model.addAttribute("user",user);
+//        User user = null;
+//        try {
+           User user=userService.login(username,password);
+        System.out.println(user.getFirst_name());
+//            session.setAttribute("sessionUser",user);
+//            model.addAttribute("user",user);
             return "redirect:/home";
-
-        }catch (UserNotFoundException e)
-        {
-            model.addAttribute("hasError", true);
-            model.addAttribute("error", e.getMessage());
-            return "login";
-        }
+//
+//        }catch (UserNotFoundException e)
+//        {
+//            model.addAttribute("hasError", true);
+//            model.addAttribute("error", e.getMessage());
+//            return "login";
+//        }
 
     }
 
@@ -105,7 +107,7 @@ private final CustomerRatesFilmService customerRatesFilmService;
                            @RequestParam Role role)
     {
         try {
-           User user=userService.register(first_name,last_name,username,email,number,password,repeatedPassword,role);
+           userService.register(first_name,last_name,username,email,number,password,role);
             return "redirect:/login";
         }catch (PasswordsDoNotMatchException exception)
         {

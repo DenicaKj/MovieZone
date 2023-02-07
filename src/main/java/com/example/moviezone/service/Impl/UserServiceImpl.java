@@ -47,23 +47,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(String first_name, String last_name, String username, String email, String number, String password,String repeatedPassword, Role role) {
-       if(!password.equals(repeatedPassword))
-           throw new PasswordsDoNotMatchException();
-       if (username==null || username.isEmpty()  || password==null || password.isEmpty())
-            throw new InvalidUsernameOrPasswordException();
+    public void register(String first_name, String last_name, String username, String email, String number, String password, Role role) {
+//       if(!password.equals(repeatedPassword))
+//           throw new PasswordsDoNotMatchException();
+//       if (username==null || username.isEmpty()  || password==null || password.isEmpty())
+//            throw new InvalidUsernameOrPasswordException();
 
        if(role.equals(Role.ROLE_ADMIN))
         {
-            User user= new User(passwordEncoder.encode(password),first_name,last_name,username,email,number);
-            workerRepository.save((Worker) user);
-            return userRepository.save(user);
+//            User user= new User(passwordEncoder.encode(password),first_name,last_name,username,email,number);
+//            workerRepository.save((Worker) user);
+            userRepository.save(new Worker(password,first_name,last_name,email,number,username));
         }
         else
        {
-           Customer customer=new Customer(passwordEncoder.encode(password),first_name,last_name,username,email,number);
-          customerRepository.save(customer);
-           return userRepository.save(customer);
+//           Customer customer=new Customer(passwordEncoder.encode(password),first_name,last_name,username,email,number);
+//           customerRepository.save(customer);
+           userRepository.save(new Customer(password,first_name,last_name,email,number,username));
 
        }
 

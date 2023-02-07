@@ -10,6 +10,6 @@ public interface UserService {
     User findById(Integer user_id);
     User findByUsername(String username);
 
-  User register(String first_name, String last_name,String username, String email, String number, String password,String repeatedPassword, Role role);
+    void register(String first_name, String last_name,String username, String email, String number, String password, Role role);
     User login(String username,String password);
 }

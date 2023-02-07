@@ -33,6 +33,19 @@ public class Customer extends User{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return id_user!=null && Objects.equals(id_user,customer.id_user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash();
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(Role.ROLE_USER);
     }
