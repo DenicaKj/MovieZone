@@ -32,7 +32,9 @@ private final CinemaOrganizesEventService cinemaOrganizesEventService;
 private final CinemaPlaysFilmService cinemaPlaysFilmService;
 private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository;
 
+
     public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository) {
+        
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
@@ -127,6 +129,7 @@ private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomReposit
 
     @GetMapping("/films")
     public String getFilmsPage(Model model){
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
         model.addAttribute("films",filmService.findAllFilms());
         model.addAttribute("bodyContent","films");
         return "master-template";
