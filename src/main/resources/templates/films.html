@@ -193,7 +193,25 @@
         font-size: 16px;
         border-radius: 20px;
     }
+    .form-group{
+        width: 200px;
+    }
+
 </style>
+<div>
+    <div class="form-group">
+        <label style="color: white;font-size: 20px;font-weight: bold">Кино</label>
+        <select name="cinemas" class="form-control">
+            <option
+                    th:selected="${cinemas.get(1)}"
+                    th:each="cinema : ${cinemas}"
+                    th:value="${cinema.getId_cinema()}"
+                    th:text="${cinema.getName()}">
+            </option>
+        </select>
+    </div>
+
+</div>
 <div xmlns:th="http://www.thymeleaf.org">
     <div class="main">
 <!--        <div th:each="film : ${films}" class="container">-->

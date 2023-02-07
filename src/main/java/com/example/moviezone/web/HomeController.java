@@ -30,6 +30,7 @@ private final CinemaOrganizesEventService cinemaOrganizesEventService;
 private final CinemaPlaysFilmService cinemaPlaysFilmService;
 
     public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService) {
+        
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
@@ -123,6 +124,7 @@ private final CinemaPlaysFilmService cinemaPlaysFilmService;
 
     @GetMapping("/films")
     public String getFilmsPage(Model model){
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
         model.addAttribute("films",filmService.findAllFilms());
         model.addAttribute("bodyContent","films");
         return "master-template";
