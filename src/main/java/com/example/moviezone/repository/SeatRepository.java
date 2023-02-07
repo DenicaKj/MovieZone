@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface SeatRepository extends JpaRepository<Seat,Integer> {
-    List<Seat> findAllByProjection_room(Projection_Room projection_room);
+    List<Seat> findAllByProjection(Projection_Room projection);
 }

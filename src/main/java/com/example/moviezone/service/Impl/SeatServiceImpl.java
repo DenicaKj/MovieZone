@@ -23,6 +23,6 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public List<Seat> findAllByProjection_Room(Projection_Room projection_room) {
-        return seatRepository.findAllByProjection_room(projection_room);
+        return seatRepository.findAllByProjection(projection_room);
     }
 }

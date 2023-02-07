@@ -35,11 +35,10 @@ private final CustomerRatesFilmService customerRatesFilmService;
 private final CinemaService cinemaService;
 private final CinemaOrganizesEventService cinemaOrganizesEventService;
 private final CinemaPlaysFilmService cinemaPlaysFilmService;
-private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository;
+private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
 
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository) {
-
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService) {
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
@@ -50,7 +49,7 @@ private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomReposit
         this.cinemaService = cinemaService;
         this.cinemaOrganizesEventService = cinemaOrganizesEventService;
         this.cinemaPlaysFilmService = cinemaPlaysFilmService;
-        this.projectionIsPlayedInRoomRepository = projectionIsPlayedInRoomRepository;
+        this.projectionIsPlayedInRoomService = projectionIsPlayedInRoomService;
     }
 
     @GetMapping
@@ -284,7 +283,7 @@ private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomReposit
         Projection projection=projectionService.findById(id_projection);
 
 
-        List<ProjectionIsPlayedInRoom> p= projectionIsPlayedInRoomRepository.findAllById_projection(id_projection);
+        List<ProjectionIsPlayedInRoom> p= projectionIsPlayedInRoomService.getProjectionPlayedInRoom(id_projection);
 
         model.addAttribute("projection",projection);
         model.addAttribute("p_rooms",projectionRooms);
