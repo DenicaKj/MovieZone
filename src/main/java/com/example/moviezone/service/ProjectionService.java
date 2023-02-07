@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ProjectionService {
     List<Projection> findAllProjections();
+    Projection findById(Integer id_projection);
 Projection save(LocalDate date_time_start,LocalDate date_time_end, String type_of_technology, Integer id_film );
 }

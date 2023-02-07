@@ -3,6 +3,8 @@ package com.example.moviezone.web;
 
 import com.example.moviezone.model.*;
 import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
+import com.example.moviezone.model.manytomany.ProjectionIsPlayedInRoom;
+import com.example.moviezone.repository.ProjectionIsPlayedInRoomRepository;
 import com.example.moviezone.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -28,8 +30,9 @@ private final CustomerRatesFilmService customerRatesFilmService;
 private final CinemaService cinemaService;
 private final CinemaOrganizesEventService cinemaOrganizesEventService;
 private final CinemaPlaysFilmService cinemaPlaysFilmService;
+private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService) {
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository) {
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
@@ -40,6 +43,7 @@ private final CinemaPlaysFilmService cinemaPlaysFilmService;
         this.cinemaService = cinemaService;
         this.cinemaOrganizesEventService = cinemaOrganizesEventService;
         this.cinemaPlaysFilmService = cinemaPlaysFilmService;
+        this.projectionIsPlayedInRoomRepository = projectionIsPlayedInRoomRepository;
     }
 
     @GetMapping
@@ -246,4 +250,26 @@ private final CinemaPlaysFilmService cinemaPlaysFilmService;
         cinemaPlaysFilmService.save(id_cinema,id_film);
         return "redirect:/home";
     }
+
+    @GetMapping("/getProjection/{id}")
+    public String getProjection(@PathVariable Integer id_projection,Model model)
+    {
+        List<Projection_Room> projectionRooms = null;
+        Projection projection=projectionService.findById(id_projection);
+
+
+        List<ProjectionIsPlayedInRoom> p= projectionIsPlayedInRoomRepository.findAllById_projection(id_projection);
+
+        model.addAttribute("projection",projection);
+        model.addAttribute("p_rooms",projectionRooms);
+        model.addAttribute("bodyContent","projectionDetails");
+        return "master-template";
+    }
+
+    @PostMapping("/makeReservation")
+    public String createTicketForReservation()
+    {
+        return "redirect:/myTickets";
+    }
+
 }
