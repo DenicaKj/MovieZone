@@ -27,8 +27,9 @@ private final WorkerService workerService;
 private final CustomerRatesFilmService customerRatesFilmService;
 private final CinemaService cinemaService;
 private final CinemaOrganizesEventService cinemaOrganizesEventService;
+private final CinemaPlaysFilmService cinemaPlaysFilmService;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService) {
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService) {
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
@@ -38,6 +39,7 @@ private final CinemaOrganizesEventService cinemaOrganizesEventService;
         this.customerRatesFilmService = customerRatesFilmService;
         this.cinemaService = cinemaService;
         this.cinemaOrganizesEventService = cinemaOrganizesEventService;
+        this.cinemaPlaysFilmService = cinemaPlaysFilmService;
     }
 
     @GetMapping
@@ -229,5 +231,19 @@ private final CinemaOrganizesEventService cinemaOrganizesEventService;
        cinemaOrganizesEventService.save(id_cinema,id_event);
         return "redirect:/home";
     }
-
+    @GetMapping("/addFilmToCinema")
+    public  String getCinemaPlaysFilmPage(Model model)
+    {
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+        model.addAttribute("films",filmService.findAllFilms());
+        model.addAttribute("bodyContent","addFilmToCinema");
+        return "master-template";
+    }
+    @PostMapping("/addCinemaPlaysFilm")
+    public String saveCinemaPlaysFilm(@RequestParam Integer id_cinema,
+                                           @RequestParam Integer id_film)
+    {
+        cinemaPlaysFilmService.save(id_cinema,id_film);
+        return "redirect:/home";
+    }
 }

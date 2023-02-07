@@ -32,4 +32,9 @@ public class CinemaPlaysFilm {
     @Id
     @Column(name = "id_film")
     Integer id_film;
+
+    public CinemaPlaysFilm(Integer id_cinema,Integer id_film) {
+        this.id_cinema = id_cinema;
+        this.id_film=id_film;
+    }
 }
