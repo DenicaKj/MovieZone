@@ -1,6 +1,7 @@
 package com.example.moviezone.service.Impl;
 
 import com.example.moviezone.model.Film;
+import com.example.moviezone.model.procedures.FilmsReturnTable;
 import com.example.moviezone.repository.FilmRepository;
 import com.example.moviezone.service.FilmService;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,11 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public Optional<Film> getFilmById(Long id) {
         return filmRepository.findAllById(Collections.singleton(id.intValue())).stream().findFirst();
+    }
+
+    @Override
+    public List<FilmsReturnTable> getFilmsFromCinema(int id) {
+        return filmRepository.getFilmsFromCinema(id);
     }
 
 }

@@ -17,4 +17,16 @@ public class FilmsReturnTable {
         this.start_date = start_date;
         this.name = name;
     }
+
+    public Integer getId_film() {
+        return id_film;
+    }
+
+    public LocalDate getStart_date() {
+        return start_date;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
