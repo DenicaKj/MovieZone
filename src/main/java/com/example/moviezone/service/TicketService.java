@@ -8,4 +8,6 @@ import java.util.List;
 public interface TicketService {
     List<Ticket> findAllTickets();
     List<Ticket> findAllByCustomer(Customer customer);
+
+    Ticket save(long price,Customer customer);
 }

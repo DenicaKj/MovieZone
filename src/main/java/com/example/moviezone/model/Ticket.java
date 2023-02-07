@@ -27,7 +27,13 @@ public class Ticket {
     @JoinColumn(name = "id_customer")
     Customer customer;
 
+    public Ticket(long price, Customer customer) {
+        this.price = price;
+        this.customer = customer;
+        this.date_reserved=LocalDate.now();
+    }
 
+    public Ticket() {
 
-
+    }
 }

@@ -25,4 +25,9 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> findAllByCustomer(Customer customer) {
         return ticketRepository.findAllByCustomer(customer);
     }
+
+    @Override
+    public Ticket save(long price, Customer customer) {
+        return ticketRepository.save(new Ticket(price,customer));
+    }
 }
