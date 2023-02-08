@@ -26,6 +26,15 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "id_customer")
     Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "id_projection")
+    Projection projection;
+    @ManyToOne
+    @JoinColumn(name = "id_discount")
+    Discount discount;
+    @ManyToOne
+    @JoinColumn(name = "id_seat")
+    Seat seat;
 
     public Ticket(long price, Customer customer) {
         this.price = price;

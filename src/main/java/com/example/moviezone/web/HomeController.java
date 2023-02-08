@@ -5,7 +5,6 @@ import com.example.moviezone.model.*;
 import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
 
 import com.example.moviezone.model.manytomany.ProjectionIsPlayedInRoom;
-import com.example.moviezone.repository.ProjectionIsPlayedInRoomRepository;
 
 import com.example.moviezone.model.procedures.FilmsReturnTable;
 
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.event.EventDirContext;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -38,9 +36,9 @@ private final CinemaService cinemaService;
 private final CinemaOrganizesEventService cinemaOrganizesEventService;
 private final CinemaPlaysFilmService cinemaPlaysFilmService;
 private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
+private final CategoryService categoryService;
 
-
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService)
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService)
     {
 
         this.filmService = filmService;
@@ -54,6 +52,7 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
         this.cinemaOrganizesEventService = cinemaOrganizesEventService;
         this.cinemaPlaysFilmService = cinemaPlaysFilmService;
         this.projectionIsPlayedInRoomService = projectionIsPlayedInRoomService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping
@@ -93,6 +92,7 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
         Film film=filmService.getFilmById(id).get();
         model.addAttribute("film",film);
         model.addAttribute("projections",projectionService.getProjectionsForFilms(id.intValue()));
+        model.addAttribute("categories",categoryService.findAllCategories());
         model.addAttribute("bodyContent", "projectionsForFilm");
 
         return "master-template";

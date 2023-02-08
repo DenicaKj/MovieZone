@@ -9,13 +9,28 @@
     .card:hover {
         transform: scale(1.05);
     }
+    .button {
+        top:250px;
+        background-color: #ff5019;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+    .form-group{
+        width: 200px;
+    }
 </style>
 <h1 style="color: white" th:text="${film.name}"></h1>
 <div style="border-radius:30px" >
     <div class="row">
         <div class="col-12 mt-3" style="padding-left:100px;height:75%;">
-            <div class="card" style=" border-radius: 30px;width:92%;align-self:center">
-                <div class="card-horizontal" th:each="projection : ${projections}">
+            <div class="card" th:each="projection : ${projections}" style=" border-radius: 30px;width:92%;align-self:center">
+                <div class="card-horizontal" >
                     <div class="card-body">
 
                         <h4 class="card-title" >
@@ -31,6 +46,22 @@
                 </div>
                 <div class="card-footer" style="border-bottom-right-radius:30px;border-bottom-left-radius:30px">
                     <small>
+                        <form th:action="@{'/home/getSeats/{id}' (id=${film.getId_film()})}"
+                              th:method="GET">
+
+                            <div class="form-group">
+                                <label style="color: black;font-size: 20px;font-weight: bold">Категорија на седиште</label>
+                                <select name="id_cinema" class="form-control" id="id_cinema">
+                                    <option
+                                            th:each="category : ${categories}"
+                                            th:value="${category.id_category}"
+                                            th:text="${category.getName()}">
+                                    </option>
+                                </select>
+
+                            </div>
+                            <button class="button" type="submit">Резервирај</button>
+                        </form>
 
                     </small>
                 </div>
