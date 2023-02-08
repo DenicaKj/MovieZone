@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 @Data
 public class ProjectionIsPlayedInRoomId implements Serializable {
-    Integer id_projection;
-    Integer id_room;
+    Integer idprojection;
+    Integer idroom;
 }

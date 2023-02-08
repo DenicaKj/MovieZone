@@ -23,11 +23,11 @@ import java.util.Collection;
 public class ProjectionIsPlayedInRoom {
     @Id
     @Column(name ="id_projection")
-    Integer id_projection;
+    Integer idprojection;
 
     @Id
     @Column(name ="id_room")
-    Integer id_room;
+    Integer idroom;
 
 
 }

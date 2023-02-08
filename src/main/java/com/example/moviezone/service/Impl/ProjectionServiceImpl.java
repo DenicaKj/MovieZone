@@ -25,6 +25,11 @@ public class ProjectionServiceImpl implements ProjectionService {
     }
 
     @Override
+    public List<Projection> getProjectionsForFilms(int id) {
+        return projectionRepository.getProjectionsForFilms(id);
+    }
+
+    @Override
     public Projection findById(Integer id_projection) {
         return projectionRepository.findById(id_projection).orElseThrow(RuntimeException::new);
     }

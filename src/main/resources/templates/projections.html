@@ -193,7 +193,28 @@
         font-size: 16px;
         border-radius: 20px;
     }
+    .form-group{
+        width: 200px;
+    }
 </style>
+<div>
+    <form th:action="@{'/home/projections'}"
+          th:method="GET">
+
+        <div class="form-group">
+            <label style="color: white;font-size: 20px;font-weight: bold">Кино</label>
+            <select name="id_cinema" class="form-control" id="id_cinema">
+                <option
+                        th:selected="${cinemas.get(1)}"
+                        th:each="cinema : ${cinemas}"
+                        th:value="${cinema.getId_cinema()}"
+                        th:text="${cinema.getName()}">
+                </option>
+            </select>
+
+        </div>
+        <button class="button" type="submit">Filter</button>
+    </form>
 <div xmlns:th="http://www.thymeleaf.org">
     <div class="main">
 
@@ -213,6 +234,11 @@
                         <h3>Genre:</h3>
                         <span th:text="${film.getGenre()}"></span>
                     </div>
+                    <form
+                          th:action="@{'/home/getProjections/{id}' (id=${film.getId_film()})}"
+                          th:method="GET">
+                        <button class="button" type="submit">Projections</button>
+                    </form>
                 </div>
             </div>
         </div>

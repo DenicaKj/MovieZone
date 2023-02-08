@@ -87,6 +87,16 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
 
         return "master-template";
     }
+    @GetMapping("/getProjections/{id}")
+    @Transactional
+    public String getProjectionsFromFilm(@PathVariable Long id, Model model) {
+        Film film=filmService.getFilmById(id).get();
+        model.addAttribute("film",film);
+        model.addAttribute("projections",projectionService.getProjectionsForFilms(id.intValue()));
+        model.addAttribute("bodyContent", "projectionsForFilm");
+
+        return "master-template";
+    }
     @GetMapping("/login")
     public String getLoginPage(Model model)
     {
@@ -167,7 +177,7 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
             List<FilmsReturnTable> pom=new LinkedList<>();
             model.addAttribute("films",filmService.getFilmsNow());
         }
-        model.addAttribute("bodyContent","films");
+        model.addAttribute("bodyContent","projections");
         return "master-template";
     }
     @GetMapping("/events")
