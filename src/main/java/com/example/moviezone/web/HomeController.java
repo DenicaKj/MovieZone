@@ -34,7 +34,7 @@ private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomReposit
 
 
     public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository) {
-        
+
         this.filmService = filmService;
         this.userService = userService;
         this.projectionService = projectionService;
