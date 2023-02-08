@@ -197,22 +197,21 @@
 <div xmlns:th="http://www.thymeleaf.org">
     <div class="main">
 
-<!--<div th:each="projection: ${projections}">-->
 
-        <div th:each="projection: ${projections}" class="container">
+        <div th:each="film: ${films}" class="container">
             <div class="card">
                 <div class="imgBx">
-                    <img th:src="@{${projection.film.getUrl()}}"/>
+                    <img th:src="@{${film.getUrl()}}"/>
                 </div>
                 <div class="contentBx">
-                    <h2  th:text="${projection.film.getName()}"></h2>
+                    <h2  th:text="${film.getName()}"></h2>
                     <div class="size">
                         <h3>Duration :</h3>
-                        <span th:text="${projection.film.getDuration()}"></span>
+                        <span th:text="${film.getDuration()}"></span>
                     </div>
                     <div class="color">
                         <h3>Genre:</h3>
-                        <span th:text="${projection.film.getGenre()}"></span>
+                        <span th:text="${film.getGenre()}"></span>
                     </div>
                 </div>
             </div>

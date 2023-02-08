@@ -1,0 +1,45 @@
+<style>
+    .genres{
+        width: 100px;
+        text-align: center;
+        background-color: #ff5019;
+        border-radius: 20px;
+        color: #111111;
+        font-size: 20px;
+        font-weight: 200;
+        margin: 20px;
+    }
+    .main{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-left: 100px;
+    }
+    .slika{
+        margin-right: 100px;
+    }
+    img{
+        width: 300px;
+        height: 350px;
+        border-radius: 20px;
+    }
+</style>
+<div xmlns:th="http://www.thymeleaf.org">
+    <div class="main">
+        <div class="container-1">
+            <h1 style="color: white; font-weight: 600" class="name" th:text="${event.getTheme()}">
+            </h1>
+            <h4 style="color: white;"> Почетен Датум:
+                <span th:text="${event.start_date}"></span>
+            </h4>
+            <h4 style="color: white"> Траење на настанот:
+                <span th:text="${event.duration}"></span>
+                минути
+            </h4>
+        </div>
+        <div class="slika">
+            <img th:src="@{${event.img_url}}"/>
+        </div>
+
+    </div>
+</div>

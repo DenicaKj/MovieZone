@@ -218,7 +218,7 @@
 </form>
 
 <div xmlns:th="http://www.thymeleaf.org">
-    <div class="main">
+    <div class="main" style="width: available;height: available">
         <div    th:if="${films.isEmpty()} == false"
                 th:each="film : ${films}" class="container">
             <div class="card">

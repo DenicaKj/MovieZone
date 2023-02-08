@@ -16,5 +16,8 @@ import java.util.List;
 public interface FilmRepository extends JpaRepository<Film,Integer> {
     @Procedure("project.getFilmsFromCinema1")
     List<Film> getFilmsFromCinema(int id);
-
+    @Procedure("project.getFilmsFromCinemaNow")
+    List<Film> getFilmsFromCinemaNow(int id);
+    @Procedure("project.getFilmsNow")
+    List<Film> getFilmsNow();
 }
