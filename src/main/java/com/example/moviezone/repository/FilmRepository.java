@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 @Transactional
 public interface FilmRepository extends JpaRepository<Film,Integer> {
-    @Procedure("project.getFilmsFromCinema")
-    List<FilmsReturnTable> getFilmsFromCinema(int id);
+    @Procedure("project.getFilmsFromCinema1")
+    List<Film> getFilmsFromCinema(int id);
 
 }

@@ -35,7 +35,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<FilmsReturnTable> getFilmsFromCinema(int id) {
+    public List<Film> getFilmsFromCinema(int id) {
         return filmRepository.getFilmsFromCinema(id);
     }
 

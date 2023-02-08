@@ -133,28 +133,6 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
         }
 
     }
-//    @GetMapping("/films")
-//    public String getFilmsPage(Model model){
-//        model.addAttribute("cinemas",cinemaService.findAllCinemas());
-//            List<FilmsReturnTable> pom=new LinkedList<>();
-//            model.addAttribute("films",pom);
-//            boolean h=pom.isEmpty();
-//            List<FilmsReturnTable> help=filmService.getFilmsFromCinema(2);
-//        model.addAttribute("bodyContent","films");
-//        return "master-template";
-//    }
-
-    //@GetMapping("/films")
-    @Transactional
-    public String getFilmsPage(Model model){
-        model.addAttribute("cinemas",cinemaService.findAllCinemas());
-            List<FilmsReturnTable> pom=new LinkedList<>();
-            model.addAttribute("films",pom);
-            boolean h=pom.isEmpty();
-            List<FilmsReturnTable> help=filmService.getFilmsFromCinema(2);
-        model.addAttribute("bodyContent","films");
-        return "master-template";
-    }
 
 
     @GetMapping("/films")
@@ -171,10 +149,6 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
         return "master-template";
     }
 
-//    @PostMapping("/getFilmsFromCinema")
-//    public String getFilmsFromCinema(@RequestParam Integer cinema, Model model){
-//        return getFilmsPage1(model,cinema);
-//    }
     @GetMapping("/projections")
     public String getProjectionsPage(Model model)
     {

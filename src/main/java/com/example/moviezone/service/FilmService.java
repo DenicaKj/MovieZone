@@ -12,5 +12,5 @@ public interface FilmService {
     Film save(String name, Integer duration, String actors, String genre,
               String age_category, String url, String director, LocalDate start_date,LocalDate end_date);
     Optional<Film> getFilmById(Long id);
-    List<FilmsReturnTable> getFilmsFromCinema(int id);
+    List<Film> getFilmsFromCinema(int id);
 }
