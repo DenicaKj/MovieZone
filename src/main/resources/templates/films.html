@@ -199,9 +199,12 @@
 
 </style>
 <div>
+    <form th:action="@{'/home/getFilm/{id}' (id=${film.getId_film()})}"
+          th:method="POST">
+
     <div class="form-group">
         <label style="color: white;font-size: 20px;font-weight: bold">Кино</label>
-        <select name="cinemas" class="form-control">
+        <select name="cinemas" class="form-control" id="cinema">
             <option
                     th:selected="${cinemas.get(1)}"
                     th:each="cinema : ${cinemas}"
@@ -209,51 +212,30 @@
                     th:text="${cinema.getName()}">
             </option>
         </select>
+
     </div>
+        <button class="button" type="submit">Filter</button>
+</form>
 
 </div>
 <div xmlns:th="http://www.thymeleaf.org">
     <div class="main">
-<!--        <div th:each="film : ${films}" class="container">-->
-<!--            <div class="card">-->
-<!--                <div class="imgBx">-->
-<!--                    <img th:src="@{${film.getUrl()}}"/>-->
-<!--                </div>-->
-<!--                <div class="contentBx">-->
-<!--                    <h2  th:text="${film.getName()}"></h2>-->
-<!--                    <div class="size">-->
-<!--                        <h3>Duration :</h3>-->
-<!--                        <span th:text="${film.getDuration()}"></span>-->
-<!--                    </div>-->
-<!--                    <div class="color">-->
-<!--                        <h3>Genre:</h3>-->
-<!--                        <span th:text="${film.getGenre()}"></span>-->
-<!--                    </div>-->
-<!--                    <form th:action="@{'/home/getFilm/{id}' (id=${film.getId_film()})}"-->
-<!--                          th:method="GET">-->
-<!--                        <button class="button" type="submit">Details</button>-->
-<!--                    </form>-->
-
-
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div th:each="film : ${films}" class="container">
+        <div    th:if="${films.isEmpty()} == false"
+                th:each="film : ${films}" class="container">
             <div class="card">
                 <div class="imgBx">
-                    <img th:src="@{${film.getUrl()}}"/>
+                    <img th:src=""/>
                 </div>
                 <div class="contentBx">
-                    <h2  th:text="${film.getName()}"></h2>
-                    <div class="size">
-                        <h3>Duration :</h3>
-                        <span th:text="${film.getDuration()}"></span>
-                    </div>
+                    <h2  th:if="${films.isEmpty()} == false"
+                            th:text="${film.getName()}"></h2>
                     <div class="color">
-                        <h3>Genre:</h3>
-                        <span th:text="${film.getGenre()}"></span>
+                        <h3>Start Date:</h3>
+                        <span th:if="${films.isEmpty()} == false"
+                                th:text="${film.getStart_date()}"></span>
                     </div>
-                    <form th:action="@{'/home/getFilm/{id}' (id=${film.getId_film()})}"
+                    <form th:if="${films.isEmpty()} == false"
+                            th:action="@{'/home/getFilm/{id}' (id=${film.getId_film()})}"
                           th:method="GET">
                         <button class="button" type="submit">Details</button>
                     </form>

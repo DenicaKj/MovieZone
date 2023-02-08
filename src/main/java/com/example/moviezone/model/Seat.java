@@ -18,7 +18,7 @@ public class Seat {
     Integer seat_number;
     @ManyToOne
     @JoinColumn(name = "id_room")
-    Projection_Room projection_room;
+    Projection_Room projection;
     @ManyToOne
     @JoinColumn(name = "id_category")
     Category category;

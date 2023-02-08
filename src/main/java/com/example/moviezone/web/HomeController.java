@@ -3,8 +3,12 @@ package com.example.moviezone.web;
 
 import com.example.moviezone.model.*;
 import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
+
 import com.example.moviezone.model.manytomany.ProjectionIsPlayedInRoom;
 import com.example.moviezone.repository.ProjectionIsPlayedInRoomRepository;
+
+import com.example.moviezone.model.procedures.FilmsReturnTable;
+
 import com.example.moviezone.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +35,11 @@ private final CustomerRatesFilmService customerRatesFilmService;
 private final CinemaService cinemaService;
 private final CinemaOrganizesEventService cinemaOrganizesEventService;
 private final CinemaPlaysFilmService cinemaPlaysFilmService;
-private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository;
+private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
 
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository) {
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomRepository)
+    {
 
         this.filmService = filmService;
         this.userService = userService;
@@ -45,7 +51,7 @@ private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomReposit
         this.cinemaService = cinemaService;
         this.cinemaOrganizesEventService = cinemaOrganizesEventService;
         this.cinemaPlaysFilmService = cinemaPlaysFilmService;
-        this.projectionIsPlayedInRoomRepository = projectionIsPlayedInRoomRepository;
+        this.projectionIsPlayedInRoomService = projectionIsPlayedInRoomService;
     }
 
     @GetMapping
@@ -126,15 +132,33 @@ private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomReposit
         }
 
     }
-
     @GetMapping("/films")
     public String getFilmsPage(Model model){
         model.addAttribute("cinemas",cinemaService.findAllCinemas());
-        model.addAttribute("films",filmService.findAllFilms());
+            List<FilmsReturnTable> pom=new LinkedList<>();
+            model.addAttribute("films",pom);
+            boolean h=pom.isEmpty();
+            List<FilmsReturnTable> help=filmService.getFilmsFromCinema(2);
         model.addAttribute("bodyContent","films");
         return "master-template";
     }
 
+    public String getFilmsPage1(Model model,Integer id_cinema){
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+        if (id_cinema!=null) {
+            model.addAttribute("films",filmService.getFilmsFromCinema(id_cinema.intValue()));
+        }else{
+            List<FilmsReturnTable> pom=new LinkedList<>();
+            model.addAttribute("films",pom);
+        }
+
+        model.addAttribute("bodyContent","films");
+        return "master-template";
+    }
+    @PostMapping("/getFilmsFromCinema")
+    public String getFilmsFromCinema(@RequestParam Integer cinema, Model model){
+        return getFilmsPage1(model,cinema);
+    }
     @GetMapping("/projections")
     public String getProjectionsPage(Model model)
     {
@@ -261,7 +285,7 @@ private final ProjectionIsPlayedInRoomRepository projectionIsPlayedInRoomReposit
         Projection projection=projectionService.findById(id_projection);
 
 
-        List<ProjectionIsPlayedInRoom> p= projectionIsPlayedInRoomRepository.findAllById_projection(id_projection);
+        List<ProjectionIsPlayedInRoom> p= projectionIsPlayedInRoomService.getProjectionPlayedInRoom(id_projection);
 
         model.addAttribute("projection",projection);
         model.addAttribute("p_rooms",projectionRooms);
