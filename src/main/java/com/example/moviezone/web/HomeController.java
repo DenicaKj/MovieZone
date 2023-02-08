@@ -132,33 +132,34 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
         }
 
     }
-    @GetMapping("/films")
-    public String getFilmsPage(Model model){
-        model.addAttribute("cinemas",cinemaService.findAllCinemas());
-            List<FilmsReturnTable> pom=new LinkedList<>();
-            model.addAttribute("films",pom);
-            boolean h=pom.isEmpty();
-            List<FilmsReturnTable> help=filmService.getFilmsFromCinema(2);
-        model.addAttribute("bodyContent","films");
-        return "master-template";
-    }
+//    @GetMapping("/films")
+//    public String getFilmsPage(Model model){
+//        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+//            List<FilmsReturnTable> pom=new LinkedList<>();
+//            model.addAttribute("films",pom);
+//            boolean h=pom.isEmpty();
+//            List<FilmsReturnTable> help=filmService.getFilmsFromCinema(2);
+//        model.addAttribute("bodyContent","films");
+//        return "master-template";
+//    }
 
-    public String getFilmsPage1(Model model,Integer id_cinema){
-        model.addAttribute("cinemas",cinemaService.findAllCinemas());
-        if (id_cinema!=null) {
-            model.addAttribute("films",filmService.getFilmsFromCinema(id_cinema.intValue()));
-        }else{
-            List<FilmsReturnTable> pom=new LinkedList<>();
-            model.addAttribute("films",pom);
-        }
+//    @GetMapping("/films")
+//    public String getFilmsPage1(Model model,@RequestParam(required = false) Integer id_cinema){
+//        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+//        if (id_cinema!=null) {
+//            model.addAttribute("films",filmService.getFilmsFromCinema(id_cinema));
+//        }else{
+////            List<FilmsReturnTable> pom=new LinkedList<>();
+//            model.addAttribute("films",filmService.findAllFilms());
+//        }
+//        model.addAttribute("bodyContent","films");
+//        return "master-template";
+//    }
 
-        model.addAttribute("bodyContent","films");
-        return "master-template";
-    }
-    @PostMapping("/getFilmsFromCinema")
-    public String getFilmsFromCinema(@RequestParam Integer cinema, Model model){
-        return getFilmsPage1(model,cinema);
-    }
+//    @PostMapping("/getFilmsFromCinema")
+//    public String getFilmsFromCinema(@RequestParam Integer cinema, Model model){
+//        return getFilmsPage1(model,cinema);
+//    }
     @GetMapping("/projections")
     public String getProjectionsPage(Model model)
     {

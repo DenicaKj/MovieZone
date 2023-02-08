@@ -199,23 +199,32 @@
 
 </style>
 <div>
-    <form th:action="@{'/home/getFilm/{id}' (id=${film.getId_film()})}"
-          th:method="POST">
+<!--    <form th:action="@{'/home/getFilm/{id}' (id=${film.getId_film()})}"-->
+<!--          th:method="POST">-->
 
-    <div class="form-group">
-        <label style="color: white;font-size: 20px;font-weight: bold">Кино</label>
-        <select name="cinemas" class="form-control" id="cinema">
-            <option
-                    th:selected="${cinemas.get(1)}"
-                    th:each="cinema : ${cinemas}"
-                    th:value="${cinema.getId_cinema()}"
-                    th:text="${cinema.getName()}">
-            </option>
+<!--    <div class="form-group">-->
+<!--        <label style="color: white;font-size: 20px;font-weight: bold">Кино</label>-->
+<!--        <select name="cinemas" class="form-control" id="cinema">-->
+<!--            <option-->
+<!--                    th:selected="${cinemas.get(1)}"-->
+<!--                    th:each="cinema : ${cinemas}"-->
+<!--                    th:value="${cinema.getId_cinema()}"-->
+<!--                    th:text="${cinema.getName()}">-->
+<!--            </option>-->
+<!--        </select>-->
+
+<!--    </div>-->
+<!--        <button class="button" type="submit">Filter</button>-->
+<!--</form>-->
+    <form id="filter-form">
+
+        <label for="f2">Cinema</label>
+        <select name="id_cinema" id="f2">
+            <option value="">All</option>
+            <option th:each="cinema : ${cinemas}" th:value="${cinema.id_cinema}" th:text="${cinema.name}"> [course]</option>
         </select>
-
-    </div>
-        <button class="button" type="submit">Filter</button>
-</form>
+        <button id="filter" type="submit">Filter</button>
+    </form>
 
 </div>
 <div xmlns:th="http://www.thymeleaf.org">
@@ -224,7 +233,7 @@
                 th:each="film : ${films}" class="container">
             <div class="card">
                 <div class="imgBx">
-                    <img th:src=""/>
+                    <img th:src="@{${film.getUrl()}}"/>
                 </div>
                 <div class="contentBx">
                     <h2  th:if="${films.isEmpty()} == false"
