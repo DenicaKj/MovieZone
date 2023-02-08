@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.event.EventDirContext;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -78,7 +79,14 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
 
         return "master-template";
     }
+    @GetMapping("/getEvent/{id}")
+    public String getEvent(@PathVariable Long id, Model model) {
+        Event event =eventService.getEventById(id).get();
+        model.addAttribute("event", event);
+        model.addAttribute("bodyContent", "event");
 
+        return "master-template";
+    }
     @GetMapping("/login")
     public String getLoginPage(Model model)
     {
@@ -148,18 +156,31 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
         model.addAttribute("bodyContent","films");
         return "master-template";
     }
-
+    @Transactional
     @GetMapping("/projections")
-    public String getProjectionsPage(Model model)
+    public String getProjectionsPage(Model model,@RequestParam(required = false) Integer id_cinema)
     {
-        model.addAttribute("projections",projectionService.findAllProjections());
-        model.addAttribute("bodyContent","projections");
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+        if (id_cinema!=null) {
+            model.addAttribute("films",filmService.getFilmsFromCinemaNow(id_cinema));
+        }else{
+            List<FilmsReturnTable> pom=new LinkedList<>();
+            model.addAttribute("films",filmService.getFilmsNow());
+        }
+        model.addAttribute("bodyContent","films");
         return "master-template";
     }
     @GetMapping("/events")
-    public String getEventsPage(Model model)
+    @Transactional
+    public String getEventsPage(Model model,@RequestParam(required = false) Integer id_cinema)
     {
-        model.addAttribute("events",eventService.findAllEvents());
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+        if (id_cinema!=null) {
+            model.addAttribute("events",eventService.getEventsFromCinema(id_cinema));
+        }else{
+            List<FilmsReturnTable> pom=new LinkedList<>();
+            model.addAttribute("events",eventService.getEventsNow());
+        }
         model.addAttribute("bodyContent","events");
         return "master-template";
     }

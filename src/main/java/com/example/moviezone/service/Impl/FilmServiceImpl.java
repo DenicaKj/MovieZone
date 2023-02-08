@@ -39,4 +39,14 @@ public class FilmServiceImpl implements FilmService {
         return filmRepository.getFilmsFromCinema(id);
     }
 
+    @Override
+    public List<Film> getFilmsFromCinemaNow(int id) {
+        return filmRepository.getFilmsFromCinemaNow(id);
+    }
+
+    @Override
+    public List<Film> getFilmsNow() {
+        return filmRepository.getFilmsNow();
+    }
+
 }

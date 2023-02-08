@@ -13,4 +13,6 @@ public interface FilmService {
               String age_category, String url, String director, LocalDate start_date,LocalDate end_date);
     Optional<Film> getFilmById(Long id);
     List<Film> getFilmsFromCinema(int id);
+    List<Film> getFilmsFromCinemaNow(int id);
+    List<Film> getFilmsNow();
 }
