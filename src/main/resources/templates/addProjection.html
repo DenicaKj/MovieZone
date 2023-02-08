@@ -1,13 +1,13 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
 
     <div class="container" style="color: white">
-        <h1 class="jumbotron-heading">Add New Projection</h1>
+        <h1 class="jumbotron-heading">Додади нова проекција</h1>
         <div class="row">
             <div class="col-md-5">
                 <form action="/home/addP" method="POST">
 
                     <div class="form-group">
-                        <label for="type_of_technology">Type Of Technology</label>
+                        <label for="type_of_technology">Тип на технологија</label>
                         <input type="text"
                                class="form-control"
                                id="type_of_technology"
@@ -15,7 +15,7 @@
                                >
                     </div>
                     <div class="form-group">
-                        <label for="date_time_start">Start Date</label>
+                        <label for="date_time_start">Почетен датум</label>
                         <input type="date"
                                class="form-control"
                                id="date_time_start"
@@ -23,7 +23,7 @@
                         >
                     </div>
                     <div class="form-group">
-                        <label for="date_time_end">End Date</label>
+                        <label for="date_time_end">Краен датум</label>
                         <input type="date"
                                class="form-control"
                                id="date_time_end"
@@ -31,7 +31,7 @@
                         >
                     </div>
                     <div class="form-group">
-                        <label>Film</label>
+                        <label>Филм</label>
                         <select name="id_film" id="f1" class="form-control">
                             <option
                                     th:each="f : ${films}"
@@ -41,7 +41,7 @@
                         </select>
                     </div>
 
-                    <button style="background-color: #ff5019" id="submit" type="submit" class="btn btn-primary">Add Projection</button>
+                    <button style="background-color: #ff5019" id="submit" type="submit" class="btn btn-primary">Додади</button>
                 </form>
             </div>
         </div>
