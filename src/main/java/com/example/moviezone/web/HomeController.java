@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -142,6 +143,19 @@ private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
 //        model.addAttribute("bodyContent","films");
 //        return "master-template";
 //    }
+
+    @GetMapping("/films")
+    @Transactional
+    public String getFilmsPage(Model model){
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+            List<FilmsReturnTable> pom=new LinkedList<>();
+            model.addAttribute("films",pom);
+            boolean h=pom.isEmpty();
+            List<FilmsReturnTable> help=filmService.getFilmsFromCinema(2);
+        model.addAttribute("bodyContent","films");
+        return "master-template";
+    }
+
 
 //    @GetMapping("/films")
 //    public String getFilmsPage1(Model model,@RequestParam(required = false) Integer id_cinema){
