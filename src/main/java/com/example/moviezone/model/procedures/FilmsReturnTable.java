@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 @Data
 public class FilmsReturnTable {
-    Integer id_film;
+    int id_film;
     LocalDate start_date;
     String name;
 
@@ -18,7 +18,7 @@ public class FilmsReturnTable {
         this.name = name;
     }
 
-    public Integer getId_film() {
+    public int getId_film() {
         return id_film;
     }
 
