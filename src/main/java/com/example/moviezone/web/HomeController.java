@@ -258,9 +258,10 @@ private final Projection_RoomService projectionRoomService;
         return "master-template";
     }
     @GetMapping("/myTickets")
-    public  String getMyTicketsPage(Model model,HttpSession session)
+    public  String getMyTicketsPage(Model model,HttpServletRequest request)
     {
-        model.addAttribute("tickets",ticketService.findAllByCustomer((Customer) session.getAttribute("user")));
+        Customer customer=customerService.findByUsername(request.getRemoteUser());
+        model.addAttribute("tickets",ticketService.findAllByCustomer(customer));
         model.addAttribute("bodyContent","myTickets");
         return "master-template";
     }
@@ -379,18 +380,19 @@ private final Projection_RoomService projectionRoomService;
 
     @PostMapping("/makeReservation")
     @Transactional
-    public String createTicketForReservation(@RequestParam Long film,@RequestParam Long projection,@RequestParam Long id_seat,@RequestParam String discount)
+    public String createTicketForReservation(@RequestParam Long film,@RequestParam Long projection,@RequestParam Long id_seat,@RequestParam String discount,HttpServletRequest request, HttpServletResponse respons)
     {
         Ticket t;
+        Customer customer=customerService.findByUsername(request.getRemoteUser());
         Projection projection1=projectionService.findById(projection.intValue());
         if(projection1.getDiscount().equals(discount)){
-            t=ticketService.saveWithDiscount(LocalDate.now(),customerService.getCustomerById(2).get(),projection1,projection1.getDiscount(),seatService.getSeatById(id_seat.intValue()).get());
+            t=ticketService.saveWithDiscount(LocalDate.now(),customer,projection1,projection1.getDiscount(),seatService.getSeatById(id_seat.intValue()).get());
         }else{
-            t=ticketService.saveWithout(LocalDate.now(),customerService.getCustomerById(4).get(),projection1,seatService.getSeatById(id_seat.intValue()).get());
+            t=ticketService.saveWithout(LocalDate.now(),customer,projection1,seatService.getSeatById(id_seat.intValue()).get());
         }
         Integer price=ticketService.priceForTicket(t.getId_ticket());
         t.setPrice(price);
-        return "redirect:/home";
+        return "redirect:/myTickets";
     }
 
 }

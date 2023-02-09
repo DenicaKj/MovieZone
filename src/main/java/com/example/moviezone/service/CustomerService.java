@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface CustomerService {
     List<Customer> findAllCustomers();
     Optional<Customer> getCustomerById(int id);
+    Customer findByUsername(String username);
 }

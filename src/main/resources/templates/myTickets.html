@@ -1,10 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    .card-horizontal {
+        display: flex;
+        flex: 1 1 auto;
+    }
+    .card {
+        transition: all .2s ease-in-out;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .button {
+        top:250px;
+        background-color: #ff5019;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+    .form-group{
+        width: 200px;
+    }
+</style>
+<div style="border-radius:30px" >
+    <div class="row">
+        <div class="col-12 mt-3" style="padding-left:100px;height:75%;">
+            <div class="card" th:each="ticket : ${tickets}" style=" border-radius: 30px;width:92%;align-self:center">
+                <div class="card-horizontal" >
+                    <div class="card-body">
 
-</body>
-</html>
+                        <h4 class="card-title" >
+                            <div>
+                                <span>Филм:</span>
+                                <span th:text="${ticket.projection.film.name}"></span></div>
+                            <div>
+                                <span>Почеток на проекција: </span>
+                                <span th:text="${ticket.projection.date_time_start}"></span></div>
+                            <div>
+                                <span>Крај на проекција: </span>
+                                <span th:text="${ticket.projection.date_time_end}"></span></div>
+                        </h4>
+
+                        <p class="card-text" th:text="${ticket.projection.type_of_technology}"></p>
+                        <span>Број на седиште: </span><p class="card-text" th:text="${ticket.seat.seat_number}"></p>
+                        <span>Цена: </span><p class="card-text" th:text="${ticket.price}"></p>
+                    </div>
+                </div>
+                <div class="card-footer" style="border-bottom-right-radius:30px;border-bottom-left-radius:30px">
+                    <small>
+                        <form th:action="@{'/home/getSeats/{id}' (id=${ticket.id_ticket})}"
+                              th:method="GET">
+                            <--button th:if="${ticket.projection.date_time_start != null and ticket.projection.date_time_start.isBefore(java.time.LocalDate.now())}" class="button" type="submit">Откажи</--button>
+                        </form>
+
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
