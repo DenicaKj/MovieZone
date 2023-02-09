@@ -42,7 +42,26 @@ public class Ticket {
         this.date_reserved=LocalDate.now();
     }
 
+    public Ticket(LocalDate date_reserved, Customer customer, Projection projection, Seat seat) {
+        this.date_reserved = date_reserved;
+        this.customer = customer;
+        this.projection = projection;
+        this.seat = seat;
+    }
+
+    public Ticket( LocalDate date_reserved, Customer customer, Projection projection, Discount discount, Seat seat) {
+        this.date_reserved = date_reserved;
+        this.customer = customer;
+        this.projection = projection;
+        this.discount = discount;
+        this.seat = seat;
+    }
+
     public Ticket() {
 
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
     }
 }

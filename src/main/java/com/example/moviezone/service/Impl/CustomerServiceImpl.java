@@ -6,6 +6,7 @@ import com.example.moviezone.service.CustomerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -18,5 +19,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public Optional<Customer> getCustomerById(int id) {
+        return customerRepository.findById(id);
     }
 }

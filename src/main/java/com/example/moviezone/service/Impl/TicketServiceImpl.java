@@ -1,11 +1,11 @@
 package com.example.moviezone.service.Impl;
 
-import com.example.moviezone.model.Customer;
-import com.example.moviezone.model.Ticket;
+import com.example.moviezone.model.*;
 import com.example.moviezone.repository.TicketRepository;
 import com.example.moviezone.service.TicketService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -27,7 +27,24 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public Ticket saveWithDiscount(LocalDate date, Customer customer, Projection projection, Discount discount, Seat seat) {
+        Ticket t=new Ticket(date,customer,projection,discount,seat);
+        return ticketRepository.save(t);
+    }
+
+    @Override
+    public Ticket saveWithout(LocalDate date, Customer customer, Projection projection, Seat seat) {
+        Ticket t=new Ticket(date,customer,projection,seat);
+        return ticketRepository.save(t);
+    }
+
+    @Override
     public Ticket save(long price, Customer customer) {
         return ticketRepository.save(new Ticket(price,customer));
+    }
+
+    @Override
+    public Integer priceForTicket(int id) {
+        return ticketRepository.getPriceForTicket(id);
     }
 }

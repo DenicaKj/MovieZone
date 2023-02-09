@@ -24,7 +24,7 @@ public class Category {
     @Id
     @Column(name = "id_category", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id_category;
+    Integer idcategory;
     String name;
     Integer extra_amount;
 
@@ -42,11 +42,11 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category that = (Category) o;
-        return Objects.equals(id_category, that.id_category) && Objects.equals(name, that.name) && Objects.equals(extra_amount, that.extra_amount);
+        return Objects.equals(idcategory, that.idcategory) && Objects.equals(name, that.name) && Objects.equals(extra_amount, that.extra_amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_category, name, extra_amount);
+        return Objects.hash(idcategory, name, extra_amount);
     }
 }

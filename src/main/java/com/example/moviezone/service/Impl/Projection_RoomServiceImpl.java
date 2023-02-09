@@ -19,4 +19,9 @@ public class Projection_RoomServiceImpl implements Projection_RoomService {
     public List<Projection_Room> findAllProjectionRooms() {
         return projectionRoomRepository.findAll();
     }
+
+    @Override
+    public List<Projection_Room> getRoomByProjection(int id) {
+        return projectionRoomRepository.getRoomsForProjection(id);
+    }
 }

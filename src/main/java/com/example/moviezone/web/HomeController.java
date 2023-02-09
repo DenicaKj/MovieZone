@@ -37,8 +37,11 @@ private final CinemaOrganizesEventService cinemaOrganizesEventService;
 private final CinemaPlaysFilmService cinemaPlaysFilmService;
 private final ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService;
 private final CategoryService categoryService;
+private final SeatService seatService;
+private final CustomerService customerService;
+private final Projection_RoomService projectionRoomService;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService)
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService, SeatService seatService, CustomerService customerService, Projection_RoomService projectionRoomService)
     {
 
         this.filmService = filmService;
@@ -53,6 +56,9 @@ private final CategoryService categoryService;
         this.cinemaPlaysFilmService = cinemaPlaysFilmService;
         this.projectionIsPlayedInRoomService = projectionIsPlayedInRoomService;
         this.categoryService = categoryService;
+        this.seatService = seatService;
+        this.customerService = customerService;
+        this.projectionRoomService = projectionRoomService;
     }
 
     @GetMapping
@@ -94,6 +100,21 @@ private final CategoryService categoryService;
         model.addAttribute("projections",projectionService.getProjectionsForFilms(id.intValue()));
         model.addAttribute("categories",categoryService.findAllCategories());
         model.addAttribute("bodyContent", "projectionsForFilm");
+
+        return "master-template";
+    }
+    @GetMapping("/getSeats/{id}")
+    @Transactional
+    public String getSeats(@PathVariable Long id, Model model,@RequestParam Long id_category,@RequestParam Long film) {
+        Category category=categoryService.getCategoryById(id_category.intValue()).get();
+        Projection projection=projectionService.findById(id.intValue());
+        model.addAttribute("film",filmService.getFilmById(film).get());
+        model.addAttribute("projection",projection);
+        model.addAttribute("category",category);
+
+        List<Seat> seats=seatService.findAllByRoomAndCategory(projectionRoomService.getRoomByProjection(projection.getId_projection()).get(0),category);
+        model.addAttribute("seats",seats);
+        model.addAttribute("bodyContent", "seats");
 
         return "master-template";
     }
@@ -315,9 +336,19 @@ private final CategoryService categoryService;
     }
 
     @PostMapping("/makeReservation")
-    public String createTicketForReservation()
+    @Transactional
+    public String createTicketForReservation(@RequestParam Long film,@RequestParam Long projection,@RequestParam Long id_seat,@RequestParam String discount)
     {
-        return "redirect:/myTickets";
+        Ticket t;
+        Projection projection1=projectionService.findById(projection.intValue());
+        if(projection1.getDiscount().equals(discount)){
+            t=ticketService.saveWithDiscount(LocalDate.now(),customerService.getCustomerById(2).get(),projection1,projection1.getDiscount(),seatService.getSeatById(id_seat.intValue()).get());
+        }else{
+            t=ticketService.saveWithout(LocalDate.now(),customerService.getCustomerById(4).get(),projection1,seatService.getSeatById(id_seat.intValue()).get());
+        }
+        Integer price=ticketService.priceForTicket(t.getId_ticket());
+        t.setPrice(price);
+        return "redirect:/home";
     }
 
 }

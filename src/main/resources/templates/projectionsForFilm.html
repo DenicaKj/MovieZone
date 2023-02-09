@@ -46,15 +46,15 @@
                 </div>
                 <div class="card-footer" style="border-bottom-right-radius:30px;border-bottom-left-radius:30px">
                     <small>
-                        <form th:action="@{'/home/getSeats/{id}' (id=${film.getId_film()})}"
+                        <form th:action="@{'/home/getSeats/{id}' (id=${projection.id_projection})}"
                               th:method="GET">
-
+                            <input type="hidden" name="film" id="film" th:value="${film.id_film}">
                             <div class="form-group">
                                 <label style="color: black;font-size: 20px;font-weight: bold">Категорија на седиште</label>
-                                <select name="id_cinema" class="form-control" id="id_cinema">
+                                <select name="id_category" class="form-control" id="id_category">
                                     <option
                                             th:each="category : ${categories}"
-                                            th:value="${category.id_category}"
+                                            th:value="${category.idcategory}"
                                             th:text="${category.getName()}">
                                     </option>
                                 </select>

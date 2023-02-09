@@ -1,0 +1,45 @@
+<style>
+
+    .button {
+        top:250px;
+        background-color: #ff5019;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+    .form-group{
+        width: 200px;
+    }
+</style>
+
+
+<form th:action="@{'/home/makeReservation'}"
+      th:method="POST">
+    <input type="hidden" name="film" id="film" th:value="${film.id_film}">
+    <input type="hidden" id="projection" name="projection" th:value="${projection.id_projection}">
+    <div class="form-group">
+        <label style="color: white;font-size: 20px;font-weight: bold">Одбери Седиште:</label>
+        <select name="id_seat" class="form-control" id="id_seat">
+            <option
+                    th:each="seat : ${seats}"
+                    th:value="${seat.id_seat}"
+                    th:text="${seat.seat_number}">
+            </option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label style="color: white" for="discount">Код за попуст</label>
+        <input type="text"
+               class="form-control"
+               id="discount"
+               name="discount"
+               placeholder="Внеси код за попуст">
+    </div>
+    <button class="button" type="submit">Резервирај</button>
+</form>
