@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CinemaService {
     List<Cinema> findAllCinemas();
+    Cinema findCinemaById(Integer id_cinema);
 }

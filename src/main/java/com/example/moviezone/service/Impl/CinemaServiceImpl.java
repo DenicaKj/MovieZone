@@ -19,4 +19,9 @@ public class CinemaServiceImpl implements CinemaService {
     public List<Cinema> findAllCinemas() {
         return cinemaRepository.findAll();
     }
+
+    @Override
+    public Cinema findCinemaById(Integer id_cinema) {
+        return cinemaRepository.findById(id_cinema).orElseThrow(RuntimeException::new);
+    }
 }

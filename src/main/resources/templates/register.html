@@ -3,44 +3,49 @@
 </div>
 <div class="container">
     <form class="form-signin mt-xl-5" method="post" action="/register">
-        <h2 class="form-signin-heading">Register</h2>
+        <h2 class="form-signin-heading" style="color: white">Регистрација</h2>
         <p>
-            <label for="username" class="sr-only">Корисничко име</label>
+            <label for="username" class="sr-only" style="color: white">Корисничко име</label>
             <input type="text" id="username" name="username" class="form-control" placeholder="Корисничко име" required=""
                    autofocus="">
         </p>
         <p>
-            <label for="password" class="sr-only">Лозинка</label>
+            <label for="password" class="sr-only" style="color: white">Лозинка</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="Лозинка"
                    required="">
         </p>
         <p>
-            <label for="repeatedPassword" class="sr-only">Повтори лозинка</label>
+            <label for="repeatedPassword" class="sr-only" style="color: white">Повтори лозинка</label>
             <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control"
                    placeholder="Повтори лозинка" required="">
         </p>
         <p>
-            <label for="first_name" class="sr-only">Име</label>
+            <label for="first_name" class="sr-only" style="color: white">Име</label>
             <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Име" required="" autofocus="">
         </p>
         <p>
-            <label for="last_name" class="sr-only">Презиме</label>
+            <label for="last_name" class="sr-only" style="color: white">Презиме</label>
             <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Презиме" required=""
                    autofocus="">
         </p>
         <p>
-            <label for="number" class="sr-only">Телефонски број</label>
+            <label for="last_name" class="sr-only" style="color: white">Е-пошта</label>
+            <input type="text" id="email" name="email" class="form-control" placeholder="Е-пошта" required=""
+                   autofocus="">
+        </p>
+        <p>
+            <label for="number" class="sr-only" style="color: white">Телефонски број</label>
             <input type="text" id="number" name="number" class="form-control" placeholder="Телефонски број" required=""
                    autofocus="">
         </p>
         <p>
         <div class="form-check form-check-inline">
             <input class="form-check-input" name="role" type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">
-            <label class="form-check-label" for="ROLE_ADMIN">ROLE_ADMIN</label>
+            <label class="form-check-label" for="ROLE_ADMIN" style="color: white">ROLE_ADMIN</label>
         </div>
         <div class="form-check form-check-inline">
             <input class="form-check-input" name="role"  type="radio" id="ROLE_USER" value="ROLE_USER">
-            <label class="form-check-label" for="ROLE_USER">ROLE_USER</label>
+            <label class="form-check-label" for="ROLE_USER" style="color: white">ROLE_USER</label>
         </div>
         </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрирај се</button>

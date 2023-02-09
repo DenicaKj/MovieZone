@@ -1,6 +1,7 @@
 package com.example.moviezone.config;
 
 
+import com.example.moviezone.model.exceptions.UserNotFoundException;
 import com.example.moviezone.service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -34,6 +35,7 @@ public class CustomUsernamePasswordAuthenticationProvider implements Authenticat
         }
 
         UserDetails userDetails = this.userService.findByUsername(username);
+
 //        String realPassword = userDetails.getPassword();
         if (!Objects.equals(password,userDetails.getPassword())) {
             throw new BadCredentialsException("Password is incorrect!");

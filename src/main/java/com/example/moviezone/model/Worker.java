@@ -31,6 +31,13 @@ public class Worker extends User {
     public Worker(String password, String first_name, String last_name, String address, String contact_number, String username) {
         super(password, first_name, last_name, address, contact_number, username);
     }
+    public Worker(String password, String first_name, String last_name, String address, String contact_number, String username,String position,String work_hours_from,String work_hours_to,Cinema cinema) {
+        super(password, first_name, last_name, address, contact_number, username);
+        this.position=position;
+        this.work_hours_from=work_hours_from;
+        this.work_hours_to=work_hours_to;
+        this.cinema=cinema;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,5 +1,6 @@
 package com.example.moviezone.service;
 
+import com.example.moviezone.model.Cinema;
 import com.example.moviezone.model.Role;
 import com.example.moviezone.model.User;
 
@@ -12,4 +13,5 @@ public interface UserService {
 
     void register(String first_name, String last_name,String username, String email, String number, String password, Role role);
     User login(String username,String password);
+    void registerWorker(String first_name, String last_name, String username, String email, String number, String password, String position, String work_hours_from, String work_hours_to, Cinema cinema);
 }

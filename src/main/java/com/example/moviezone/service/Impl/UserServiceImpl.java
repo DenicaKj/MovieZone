@@ -1,9 +1,6 @@
 package com.example.moviezone.service.Impl;
 
-import com.example.moviezone.model.Customer;
-import com.example.moviezone.model.Role;
-import com.example.moviezone.model.User;
-import com.example.moviezone.model.Worker;
+import com.example.moviezone.model.*;
 import com.example.moviezone.model.exceptions.InvalidUsernameOrPasswordException;
 import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
 import com.example.moviezone.model.exceptions.UserNotFoundException;
@@ -72,6 +69,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String username, String password) {
         return userRepository.findAllByUsernameAndPassword(username,password).stream().findFirst().orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public void registerWorker(String first_name, String last_name, String username, String email, String number, String password, String position, String work_hours_from, String work_hours_to, Cinema cinema) {
+        userRepository.save(new Worker(password,first_name,last_name,email,number,username,position,work_hours_from,work_hours_to,cinema));
+
     }
 
 

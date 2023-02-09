@@ -16,11 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -150,31 +153,68 @@ private final Projection_RoomService projectionRoomService;
         {
             model.addAttribute("hasError", true);
             model.addAttribute("error", e.getMessage());
-            return "/login";
+            return "login";
         }
 
     }
 
-    @PostMapping()
-    public String register(@RequestParam String username,
+    @PostMapping("/register")
+    public void register(@RequestParam String username,
                            @RequestParam String first_name,
                            @RequestParam String last_name,
                            @RequestParam String password,
                            @RequestParam String repeatedPassword,
                            @RequestParam String email,
                            @RequestParam String number,
-                           @RequestParam Role role)
-    {
-        try {
-           userService.register(first_name,last_name,username,email,number,password,role);
-            return "redirect:/login";
-        }catch (PasswordsDoNotMatchException exception)
-        {
-            return "redirect:/register?error=" + exception.getMessage();
+                           @RequestParam Role role,HttpServletResponse response, HttpSession session) throws IOException {
+
+        System.out.println(username + first_name+ last_name + password + repeatedPassword + email + number + role);
+        if(role.equals(Role.ROLE_ADMIN)){
+            session.setAttribute("username", username);
+            session.setAttribute("first_name", first_name);
+            session.setAttribute("last_name", last_name);
+            session.setAttribute("password", password);
+            session.setAttribute("repeatedPassword", repeatedPassword);
+            session.setAttribute("email", email);
+            session.setAttribute("number", number);
+            response.sendRedirect("/registerWorker");
+        }
+        else {
+            try {
+                userService.register(first_name,last_name,username,email,number,password,role);
+                response.sendRedirect( "redirect:/login");
+            }catch (PasswordsDoNotMatchException exception)
+            {
+//                return "redirect:/register?error=" + exception.getMessage();
+            }
         }
 
     }
-
+    @GetMapping("/registerWorker")
+    public String getRegisterWorkerPage(Model model){
+        model.addAttribute("cinemas",cinemaService.findAllCinemas());
+        model.addAttribute("bodyContent","registerWorker");
+        return "master-template";
+    }
+    @PostMapping("/finishRegister")
+    public void handleWorkerRegister(Model model, HttpServletResponse response, HttpSession session,
+                                     @RequestParam String position, @RequestParam String work_hours_from,
+                                     @RequestParam String work_hours_to,@RequestParam Integer id_cinema){
+        System.out.println("here?");
+        String username = (String) session.getAttribute("username");
+        String first_name = (String) session.getAttribute("first_name");
+        String last_name = (String) session.getAttribute("last_name");
+        String password = (String) session.getAttribute("password");
+        String email = (String) session.getAttribute("email");
+        String number = (String) session.getAttribute("number");
+        Cinema cinema=cinemaService.findCinemaById(id_cinema);
+        userService.registerWorker(first_name,last_name,username,email,number,password,position,work_hours_from,work_hours_to,cinema);
+        try {
+            response.sendRedirect("/login");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @GetMapping("/films")
     @Transactional

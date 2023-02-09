@@ -1,0 +1,38 @@
+<div class="container">
+  <h1 th:if="${hasError}" th:text="${error}"></h1>
+</div>
+<div class="container">
+  <form class="form-signin mt-xl-5" method="post" action="/finishRegister">
+    <h2 class="form-signin-heading" style="color: white">Избери кино, внеси позиција и работно време</h2>
+
+    <div class="form-group">
+      <label style="color: white;font-size: 20px;font-weight: bold">Избери кинотека</label>
+      <select name="id_cinema" class="form-control" id="id_cinema">
+        <option
+                th:selected="${cinemas.get(1)}"
+                th:each="cinema : ${cinemas}"
+                th:value="${cinema.getId_cinema()}"
+                th:text="${cinema.getName()}">
+        </option>
+      </select>
+
+    </div>
+    <p>
+      <label for="position" class="sr-only" style="color: white">Позиција</label>
+      <input type="text" id="position" name="position" class="form-control" placeholder="Позиција" required=""
+             autofocus="">
+    </p>
+
+    <p>
+      <label for="work_hours_from" class="sr-only" style="color: white">Почеток работно време</label>
+      <input type="text" id="work_hours_from" name="work_hours_from" class="form-control" placeholder="Почеток работно време" required="" autofocus="">
+    </p>
+    <p>
+      <label for="work_hours_to" class="sr-only" style="color: white">Крај работно време</label>
+      <input type="text" id="work_hours_to" name="work_hours_to" class="form-control" placeholder="Крај работно време" required="" autofocus="">
+    </p>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрирај се</button>
+  </form>
+
+</div>
