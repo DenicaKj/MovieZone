@@ -65,12 +65,21 @@
         <li class="begin"><a href="/projections">Програма</a></li>
         <li class="begin"><a href="/events">Настани</a></li>
 <!--        <li class="begin"><a href="#!">Faq</a></li>-->
-        <li class="begin"><a href="/myTickets">Мои Карти</a></li>
+        <th:block sec:authorize="hasAuthority('ROLE_USER')">
+            <li class="begin"><a href="/myTickets">Мои Карти</a></li>
+        </th:block>
+        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
         <li class="begin"><a href="/workers">Вработени</a></li>
+        </th:block>
+        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
         <li class="begin"><a href="/addProjection">Нова Проекција</a></li>
+        </th:block>
+        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
         <li class="begin"><a href="/addFilm">Нов Филм</a></li>
+        </th:block>
+        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
         <li class="begin"><a href="/addEvent">Нов Настан</a></li>
-
+        </th:block>
     </ul>
     <ul class="menu-right">
         <th:block th:if="${#request.getRemoteUser() != null}">
