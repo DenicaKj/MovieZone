@@ -58,7 +58,7 @@
 </style>
 <body>
 <div style="width: 100%">
-<nav class="menu">
+<nav class="menu" xmlns:sec="http://www.w3.org/1999/xhtml">
     <ul class="menu-left">
         <li class="begin"><a href="/home">MovieZone</a></li>
         <li class="begin"><a href="/films">Филмови</a></li>
@@ -73,8 +73,26 @@
 
     </ul>
     <ul class="menu-right">
-        <li class="reg"><a href="/login">Најава</a></li>
-        <li class="reg"><a href="/register">Регистрација</a></li>
+        <th:block th:if="${#request.getRemoteUser() != null}">
+            <li class="reg">
+                <a href="/">
+                    <th:block th:text="${#request.getRemoteUser()}"></th:block>
+                </a>
+            </li>
+        </th:block>
+        <th:block th:if="${#request.getRemoteUser() == null}">
+            <li class="reg"><a href="/register">Регистрација</a></li>
+        </th:block>
+        <th:block th:if="${#request.getRemoteUser() != null}">
+            <li class="reg" sec:authorize="isAuthenticated()">
+                <a  href="/logout">
+                    Одјави се
+                </a>
+            </li>
+        </th:block>
+        <th:block th:if="${#request.getRemoteUser() == null}">
+            <li class="reg"><a href="/login">Најава</a></li>
+        </th:block>
     </ul>
 </nav></div>
 </body>
