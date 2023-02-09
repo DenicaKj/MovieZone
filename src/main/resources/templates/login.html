@@ -3,7 +3,7 @@
     <form th:method="POST" th:action="@{/login}">
         <div class="container">
             <form class="form-signin mt-xl-5" method="post" action="/login">
-                <h2 class="form-signin-heading">Најава</h2>
+                <h2 class="form-signin-heading" style="color: white">Најава</h2>
                 <p>
                     <label for="username" class="sr-only">Корисничко име</label>
                     <input type="text" id="username" name="username" class="form-control" placeholder="Корисничко име" required="" autofocus=""/>
@@ -13,8 +13,11 @@
                     <input type="password" id="password" name="password" class="form-control" placeholder="Лозинка" required=""/>
                 </p>
             </form>
-            <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Најави се</button>
+            <button id="submit" style="background-color: #ff5019;border-color: #ff5019" class="btn btn-lg btn-block" type="submit">Најави се</button>
+        </div>
+        <div style="display: flex;justify-content: center;align-content: center">
+        <a href="/register" class="btn btn-block btn-light" style="margin-top: 20px;width: 400px">Регистрирај се тука!</a>
         </div>
     </form>
-    <a href="/register" class="btn btn-block btn-light">Регистрирај се тука!</a>
+
 </div>
