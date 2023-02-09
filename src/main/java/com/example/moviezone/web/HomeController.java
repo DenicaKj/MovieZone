@@ -4,6 +4,7 @@ package com.example.moviezone.web;
 import com.example.moviezone.model.*;
 import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
 
+import com.example.moviezone.model.exceptions.UserNotFoundException;
 import com.example.moviezone.model.manytomany.ProjectionIsPlayedInRoom;
 
 import com.example.moviezone.model.procedures.FilmsReturnTable;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -134,22 +136,22 @@ private final Projection_RoomService projectionRoomService;
 
     @PostMapping("/login")
     public String login(@RequestParam String username,
-                        @RequestParam String password,Model model, HttpSession session)
+                        @RequestParam String password, Model model, HttpServletRequest request)
     {
 //        User user = null;
-//        try {
+        try {
            User user=userService.login(username,password);
         System.out.println(user.getFirst_name());
-//            session.setAttribute("sessionUser",user);
-//            model.addAttribute("user",user);
+        request.getSession().setAttribute("user", user);
+        //            model.addAttribute("user",user);
             return "redirect:/home";
-//
-//        }catch (UserNotFoundException e)
-//        {
-//            model.addAttribute("hasError", true);
-//            model.addAttribute("error", e.getMessage());
-//            return "login";
-//        }
+
+        }catch (UserNotFoundException e)
+        {
+            model.addAttribute("hasError", true);
+            model.addAttribute("error", e.getMessage());
+            return "/login";
+        }
 
     }
 

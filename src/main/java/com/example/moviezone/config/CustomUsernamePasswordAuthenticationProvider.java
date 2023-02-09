@@ -34,8 +34,8 @@ public class CustomUsernamePasswordAuthenticationProvider implements Authenticat
         }
 
         UserDetails userDetails = this.userService.findByUsername(username);
-        String realPassword = userDetails.getPassword();
-        if (!Objects.equals(password,realPassword)) {
+//        String realPassword = userDetails.getPassword();
+        if (!Objects.equals(password,userDetails.getPassword())) {
             throw new BadCredentialsException("Password is incorrect!");
         }
         return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
