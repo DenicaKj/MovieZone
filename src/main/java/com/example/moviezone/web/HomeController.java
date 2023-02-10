@@ -402,5 +402,21 @@ private final Projection_RoomService projectionRoomService;
         customerRatesFilmService.addRating(customer.getId_user(),Integer.valueOf(id.intValue()),Integer.valueOf(rate.intValue()));
         return "redirect:/home/getFilm/"+id;
     }
-
+    @GetMapping("/profileWorker")
+    public String getWorkerProfile(Model model,HttpServletRequest request)
+    {
+        Worker worker=workerService.getWorkerByUsername(request.getRemoteUser());
+        model.addAttribute("worker",worker);
+        model.addAttribute("bodyContent", "profileWorker");
+        return "master-template";
+    }
+    @GetMapping("/profileUser")
+    public String getUserProfile(Model model,HttpServletRequest request)
+    {
+        Customer customer=customerService.findByUsername(request.getRemoteUser());
+        System.out.println(customer.getFirst_name());
+        model.addAttribute("customer",customer);
+        model.addAttribute("bodyContent", "profileUser");
+        return "master-template";
+    }
 }

@@ -1,0 +1,19 @@
+<div class="container-1">
+    <h1 style="color: white; font-weight: 600" class="name" th:text="${worker.first_name}+' '+${worker.last_name}">
+    </h1>
+    <h4 style="color: white;"> Адреса:
+        <span th:text="${worker.address}"></span>
+    </h4>
+    <h4 style="color: white"> Број:
+        <span th:text="${worker.contact_number}"></span>
+    </h4>
+    <h4 style="color: white"> Датум на креирање профил:
+        <span th:text="${worker.date_created}"></span>
+    </h4>
+    <h4 style="color: white"> Позиција:
+        <span th:text="${worker.position}"></span>
+    </h4>
+    <h4 style="color: white"> Работи во кино:
+        <span th:text="${worker.cinema.name}"></span>
+    </h4>
+</div>

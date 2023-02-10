@@ -82,9 +82,16 @@
         </th:block>
     </ul>
     <ul class="menu-right">
-        <th:block th:if="${#request.getRemoteUser() != null}">
+        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${#request.getRemoteUser() != null}">
             <li class="reg">
-                <a href="/">
+                <a href="/profileWorker">
+                    <th:block th:text="${#request.getRemoteUser()}"></th:block>
+                </a>
+            </li>
+        </th:block>
+        <th:block sec:authorize="hasAuthority('ROLE_USER')" th:if="${#request.getRemoteUser() != null}">
+            <li class="reg">
+                <a href="/profileUser">
                     <th:block th:text="${#request.getRemoteUser()}"></th:block>
                 </a>
             </li>

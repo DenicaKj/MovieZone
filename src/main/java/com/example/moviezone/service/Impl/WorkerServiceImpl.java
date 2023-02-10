@@ -19,4 +19,9 @@ public class WorkerServiceImpl implements WorkerService {
     public List<Worker> findAllWorkers() {
         return workerRepository.findAll();
     }
+
+    @Override
+    public Worker getWorkerByUsername(String username) {
+        return workerRepository.getByUsername(username);
+    }
 }

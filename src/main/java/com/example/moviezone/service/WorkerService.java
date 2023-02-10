@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface WorkerService {
     List<Worker> findAllWorkers();
+    Worker getWorkerByUsername(String username);
 }
