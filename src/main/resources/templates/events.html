@@ -9,7 +9,8 @@
 
     .container{
 
-        position: relative;
+        display: contents;
+        margin: 5%;
     }
 
     .container .card{
@@ -178,8 +179,9 @@
     .main{
         margin-top: 100px;
         display: flex;
+        flex-wrap: wrap;
         align-items: flex-start;
-        justify-content: flex-start;
+        justify-content: space-around;
     }
     .button {
         top:250px;
@@ -198,11 +200,11 @@
     }
 </style>
 <div>
-    <form th:action="@{'/home/events'}"
+    <form style="margin-left: 20px" th:action="@{'/home/events'}"
           th:method="GET">
 
         <div class="form-group">
-            <label style="color: white;font-size: 20px;font-weight: bold">Кино</label>
+            <label style="color: white;font-size: 20px;font-weight: bold">Избери Кино:</label>
             <select name="id_cinema" class="form-control" id="id_cinema">
                 <option
                         th:selected="${cinemas.get(1)}"
