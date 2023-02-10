@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,8 +71,11 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
     @GetMapping
     public String getHomePage(Model model) {
         List<Film> films=filmService.findAllFilms();
+        Collections.reverse(films);
         films=films.stream().limit(5).collect(Collectors.toList());
-        List <Event> events=eventService.findAllEvents().stream().limit(5).collect(Collectors.toList());
+        List <Event> events=eventService.findAllEvents();
+        Collections.reverse(events);
+        events=events.stream().limit(5).collect(Collectors.toList());
         model.addAttribute("films", films);
         model.addAttribute("events",events);
         model.addAttribute("bodyContent", "home");
@@ -84,6 +88,10 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
         model.addAttribute("film", film);
         List<String> genres= List.of(film.getGenre().split(","));
         double r=customerRatesFilmService.avg_rating(film.getId_film());
+        Double ra=Double.valueOf(r);
+        if(ra==null){
+            r=0;
+        }
         model.addAttribute("rating",r);
         model.addAttribute("genres", genres);
         model.addAttribute("bodyContent", "film");
