@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -45,8 +44,9 @@ private final CategoryService categoryService;
 private final SeatService seatService;
 private final CustomerService customerService;
 private final Projection_RoomService projectionRoomService;
+private final CustomerIsInterestedInEventService customerIsInterestedInEventService;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService, SeatService seatService, CustomerService customerService, Projection_RoomService projectionRoomService)
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService, SeatService seatService, CustomerService customerService, Projection_RoomService projectionRoomService, CustomerIsInterestedInEventService customerIsInterestedInEventService)
     {
 
         this.filmService = filmService;
@@ -64,6 +64,7 @@ private final Projection_RoomService projectionRoomService;
         this.seatService = seatService;
         this.customerService = customerService;
         this.projectionRoomService = projectionRoomService;
+        this.customerIsInterestedInEventService = customerIsInterestedInEventService;
     }
 
     @GetMapping
@@ -411,12 +412,30 @@ private final Projection_RoomService projectionRoomService;
         return "master-template";
     }
     @GetMapping("/profileUser")
+    @Transactional
     public String getUserProfile(Model model,HttpServletRequest request)
     {
         Customer customer=customerService.findByUsername(request.getRemoteUser());
         System.out.println(customer.getFirst_name());
+        List<Event> events=eventService.getEventsForCustomer(customer.getId_user());
         model.addAttribute("customer",customer);
+        model.addAttribute("events",events);
         model.addAttribute("bodyContent", "profileUser");
         return "master-template";
+    }
+    @PostMapping("/addInterestedEvent/{id}")
+    public String addInterestedEvent(@PathVariable Long id,HttpServletRequest request, HttpServletResponse respons)
+    {
+        Customer customer=customerService.findByUsername(request.getRemoteUser());
+        customerIsInterestedInEventService.add(customer.getId_user(),Integer.valueOf(id.intValue()));
+        return "redirect:/profileUser";
+    }
+    @PostMapping("/deleteInterestedEvent/{id}")
+    public String deleteInterestedEvent(@PathVariable Long id,HttpServletRequest request, HttpServletResponse respons)
+    {
+        Customer customer=customerService.findByUsername(request.getRemoteUser());
+        Event event=eventService.getEventById(id).get();
+        customerIsInterestedInEventService.delete(customer,event);
+        return "redirect:/profileUser";
     }
 }

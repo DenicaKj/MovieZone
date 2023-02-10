@@ -24,8 +24,13 @@ import java.util.Collection;
 public class CustomerIsInterestedInEvent {
     @Id
     @Column(name = "id_customer")
-    Integer id_customer;
+    Integer idcustomer;
     @Column(name = "id_event")
     @Id
-    Integer id_event;
+    Integer idevent;
+
+    public CustomerIsInterestedInEvent(Integer id_customer, Integer id_event) {
+        this.idcustomer = id_customer;
+        this.idevent = id_event;
+    }
 }

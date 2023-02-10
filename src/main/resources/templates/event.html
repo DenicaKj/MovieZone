@@ -23,6 +23,21 @@
         height: 350px;
         border-radius: 20px;
     }
+    .button {
+        top:250px;
+        background-color: #ff5019;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+    .form-group{
+        width: 200px;
+    }
 </style>
 <div xmlns:th="http://www.thymeleaf.org">
     <div class="main">
@@ -36,6 +51,10 @@
                 <span th:text="${event.duration}"></span>
                 минути
             </h4>
+            <form th:action="@{'/home/addInterestedEvent/{id}' (id=${event.id_event})}"
+                  th:method="POST">
+                <button class="button" type="submit">Додади Заинтересиран</button>
+            </form>
         </div>
         <div class="slika">
             <img th:src="@{${event.img_url}}"/>

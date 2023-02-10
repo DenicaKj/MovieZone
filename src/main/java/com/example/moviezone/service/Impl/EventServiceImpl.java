@@ -42,4 +42,9 @@ public class EventServiceImpl implements EventService {
     public Optional<Event> getEventById(Long id) {
         return eventRepository.findAllById(Collections.singleton(id.intValue())).stream().findFirst();
     }
+
+    @Override
+    public List<Event> getEventsForCustomer(int id) {
+        return eventRepository.getEventsForCustomer(id);
+    }
 }

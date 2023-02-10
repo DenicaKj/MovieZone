@@ -7,4 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomerIsInterestedInEventRepository extends JpaRepository<CustomerIsInterestedInEvent, CustomerIsInterestedInEventId> {
+    CustomerIsInterestedInEvent save(CustomerIsInterestedInEvent customerIsInterestedInEvent);
+    void delete(CustomerIsInterestedInEvent customerIsInterestedInEvent);
+    CustomerIsInterestedInEvent findFirstByIdeventAndAndIdcustomer(int id_event,int id_customer);
+
 }

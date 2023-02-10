@@ -1,5 +1,6 @@
 package com.example.moviezone.service;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.example.moviezone.model.Event;
 
 import java.time.LocalDate;
@@ -12,4 +13,5 @@ public interface EventService {
     List<Event> getEventsNow();
     List<Event> getEventsFromCinema(int id);
     Optional<Event> getEventById(Long id);
+    List<Event> getEventsForCustomer(int id);
 }
