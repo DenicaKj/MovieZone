@@ -23,6 +23,21 @@
         height: 350px;
         border-radius: 20px;
     }
+    .button {
+        top:250px;
+        background-color: #ff5019;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+    .form-group{
+        width: 200px;
+    }
 </style>
 <div xmlns:th="http://www.thymeleaf.org">
 <div class="main">
@@ -46,6 +61,14 @@
                 <span th:text="${rating}"></span>
                 <span>/5</span>
             </h4>
+            <form th:action="@{'/home/addRating/{id}' (id=${film.id_film})}"
+                  th:method="POST">
+                <div class="form-group">
+                    <label style="color: black;font-size: 20px;font-weight: bold">Оцени:</label>
+                <input required type="text" id="rate" name="rate">
+                </div>
+                <button class="button" type="submit">Додади Оцена</button>
+            </form>
         </div>
     <div class="slika">
         <img th:src="@{${film.getUrl()}}"/>

@@ -53,7 +53,7 @@
                     <small>
                         <form th:action="@{'/home/getSeats/{id}' (id=${ticket.id_ticket})}"
                               th:method="GET">
-                            <--button th:if="${ticket.projection.date_time_start != null and ticket.projection.date_time_start.isBefore(java.time.LocalDate.now())}" class="button" type="submit">Откажи</--button>
+                            <--button th:if="${ticket.projection.date_time_start != null and #dates.isBefore(java.time.LocalDateTime.of(ticket.projection.date_time_start, java.time.LocalTime.MIN).toInstant(java.time.ZoneOffset.UTC).toEpochMilli(), java.util.Date.from(java.time.LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant()).getTime())}" class="button" type="submit">Откажи</--button>
                         </form>
 
                     </small>

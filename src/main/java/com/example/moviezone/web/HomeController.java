@@ -394,5 +394,13 @@ private final Projection_RoomService projectionRoomService;
         t.setPrice(price);
         return "redirect:/myTickets";
     }
+    @PostMapping("/addRating/{id}")
+    public String addRating(@RequestParam Long rate,@PathVariable Long id,HttpServletRequest request, HttpServletResponse respons)
+    {
+        Customer customer=customerService.findByUsername(request.getRemoteUser());
+        System.out.println(customer.getFirst_name());
+        customerRatesFilmService.addRating(customer.getId_user(),Integer.valueOf(id.intValue()),Integer.valueOf(rate.intValue()));
+        return "redirect:/home/getFilm/"+id;
+    }
 
 }

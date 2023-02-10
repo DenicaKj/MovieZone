@@ -29,4 +29,11 @@ public class CustomerRatesFilm {
     @Column(name ="id_film")
     Integer id_film;
 
+    double rating;
+
+    public CustomerRatesFilm(Integer id_customer, Integer id_film, double rating) {
+        this.id_customer = id_customer;
+        this.id_film = id_film;
+        this.rating = rating;
+    }
 }

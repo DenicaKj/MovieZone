@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRatesFilmRepository extends JpaRepository<CustomerRatesFilm, CustomerRatesFilmId> {
 @Procedure("project.avg_rating1")
     double avg_rating(int id);
-
+    CustomerRatesFilm save(CustomerRatesFilm customerRatesFilm);
 }
