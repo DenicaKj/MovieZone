@@ -51,10 +51,12 @@
                 <span th:text="${event.duration}"></span>
                 минути
             </h4>
+            <th:block sec:authorize="hasAuthority('ROLE_USER')" th:if="${#request.getRemoteUser() != null}">
             <form th:action="@{'/home/addInterestedEvent/{id}' (id=${event.id_event})}"
                   th:method="POST">
                 <button class="button" type="submit">Додади Заинтересиран</button>
             </form>
+            </th:block>
         </div>
         <div class="slika">
             <img th:src="@{${event.img_url}}"/>

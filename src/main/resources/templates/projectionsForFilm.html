@@ -26,7 +26,7 @@
     }
 </style>
 <h1 style="color: white" th:text="${film.name}"></h1>
-<div style="border-radius:30px" >
+<div style="border-radius:30px" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="row">
         <div class="col-12 mt-3" style="padding-left:100px;height:75%;">
             <div class="card" th:each="projection : ${projections}" style=" border-radius: 30px;width:92%;align-self:center">
@@ -46,6 +46,7 @@
                 </div>
                 <div class="card-footer" style="border-bottom-right-radius:30px;border-bottom-left-radius:30px">
                     <small>
+                        <th:block sec:authorize="hasAuthority('ROLE_USER')" th:if="${#request.getRemoteUser() != null}">
                         <form th:action="@{'/home/getSeats/{id}' (id=${projection.id_projection})}"
                               th:method="GET">
                             <input type="hidden" name="film" id="film" th:value="${film.id_film}">
@@ -62,7 +63,7 @@
                             </div>
                             <button class="button" type="submit">Резервирај</button>
                         </form>
-
+                        </th:block>
                     </small>
                 </div>
             </div>
