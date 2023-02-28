@@ -191,13 +191,14 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
         else {
             try {
                 userService.register(first_name,last_name,username,email,number,password,role);
-                response.sendRedirect( "redirect:/login");
+
             }catch (PasswordsDoNotMatchException exception)
             {
 //                return "redirect:/register?error=" + exception.getMessage();
             }
+            response.sendRedirect("/login");
         }
-
+        
     }
     @GetMapping("/registerWorker")
     public String getRegisterWorkerPage(Model model){
