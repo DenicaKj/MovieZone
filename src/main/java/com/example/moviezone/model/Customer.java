@@ -26,6 +26,7 @@ public class Customer extends User{
 
     public Customer(String password, String first_name, String last_name, String address, String contact_number, String username) {
         super(password, first_name, last_name, address, contact_number, username);
+        points=0;
     }
 
     public Customer() {
