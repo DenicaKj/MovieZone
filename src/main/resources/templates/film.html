@@ -61,6 +61,7 @@
                 <span th:text="${rating}"></span>
                 <span>/5</span>
             </h4>
+            <th:block sec:authorize="hasAuthority('ROLE_USER')" th:if="${#request.getRemoteUser() != null}">
             <form th:action="@{'/home/addRating/{id}' (id=${film.id_film})}"
                   th:method="POST">
                 <div class="form-group">
@@ -69,6 +70,7 @@
                 </div>
                 <button class="button" type="submit">Додади Оцена</button>
             </form>
+            </th:block>
         </div>
     <div class="slika">
         <img th:src="@{${film.getUrl()}}"/>

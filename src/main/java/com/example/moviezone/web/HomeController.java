@@ -198,7 +198,7 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
             }
             response.sendRedirect("/login");
         }
-        
+
     }
     @GetMapping("/registerWorker")
     public String getRegisterWorkerPage(Model model){
@@ -395,13 +395,19 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
         Ticket t;
         Customer customer=customerService.findByUsername(request.getRemoteUser());
         Projection projection1=projectionService.findById(projection.intValue());
-        if(projection1.getDiscount().equals(discount)){
+        if(projection1.getDiscount()!=null && projection1.getDiscount().getCode().equals(discount)){
             t=ticketService.saveWithDiscount(LocalDate.now(),customer,projection1,projection1.getDiscount(),seatService.getSeatById(id_seat.intValue()).get());
+            Integer price=ticketService.priceForTicket(t.getId_ticket());
+            price+=seatService.getSeatById(id_seat.intValue()).get().getCategory().getExtra_amount();
+            price-=(price*projection1.getDiscount().getPercent())/100;
+            t.setPrice(price);
         }else{
             t=ticketService.saveWithout(LocalDate.now(),customer,projection1,seatService.getSeatById(id_seat.intValue()).get());
+            Integer price=ticketService.priceForTicket(t.getId_ticket());
+            price+=seatService.getSeatById(id_seat.intValue()).get().getCategory().getExtra_amount();
+            t.setPrice(price);
         }
-        Integer price=ticketService.priceForTicket(t.getId_ticket());
-        t.setPrice(price);
+
         return "redirect:/myTickets";
     }
     @PostMapping("/addRating/{id}")
