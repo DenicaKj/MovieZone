@@ -47,4 +47,9 @@ public class TicketServiceImpl implements TicketService {
     public Integer priceForTicket(int id) {
         return ticketRepository.getPriceForTicket(id);
     }
+
+    @Override
+    public void delete(int id) {
+        ticketRepository.deleteById(id);
+    }
 }

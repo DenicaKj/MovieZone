@@ -1,10 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <div style="color: white" class="container">
+        <h1 class="jumbotron-heading">Додани нов попуст</h1>
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/home/addD" method="POST">
+                    <div class="form-group">
+                        <label for="code">Код</label>
+                        <input type="text"
+                               class="form-control"
+                               id="code"
+                               name="code"
+                               required
+                               placeholder="внеси код">
+                    </div>
+                    <div class="form-group">
+                        <label for="validity">Валиндост</label>
+                        <input type="date"
+                               class="form-control"
+                               id="validity"
+                               name="validity"
+                               placeholder="Валидност">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Тип</label>
+                        <input type="text"
+                               class="form-control"
+                               id="type"
+                               name="type"
+                               placeholder="Тип">
+                    </div>
+                    <div class="form-group">
+                        <label for="percent">Процент</label>
+                        <input type="number"
+                               class="form-control"
+                               id="percent"
+                               name="percent"
+                        >
+                    </div>
+                    <button style="background-color: #ff5019" id="submit" type="submit" class="btn btn-primary">Додади</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</th:block>

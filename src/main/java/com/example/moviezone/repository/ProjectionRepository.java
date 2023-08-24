@@ -11,4 +11,6 @@ import java.util.List;
 public interface ProjectionRepository extends JpaRepository<Projection,Integer> {
     @Procedure("project.getProjectionsForFilms")
     List<Projection> getProjectionsForFilms(int id);
+    @Procedure("project.getProjectionsNow")
+    List<Projection> getProjectionsNow();
 }

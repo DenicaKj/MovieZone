@@ -29,5 +29,8 @@ public class ProjectionIsPlayedInRoom {
     @Column(name ="id_room")
     Integer idroom;
 
-
+    public ProjectionIsPlayedInRoom(Integer idprojection, Integer idroom) {
+        this.idprojection = idprojection;
+        this.idroom = idroom;
+    }
 }

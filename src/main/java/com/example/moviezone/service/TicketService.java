@@ -12,4 +12,5 @@ public interface TicketService {
     Ticket saveWithout(LocalDate date,Customer customer,Projection projection,Seat seat);
     Ticket save(long price,Customer customer);
     Integer priceForTicket(int id);
+    void delete(int id);
 }

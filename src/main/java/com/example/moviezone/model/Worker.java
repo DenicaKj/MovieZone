@@ -58,7 +58,11 @@ public class Worker extends User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(Role.ROLE_ADMIN);
+        if (position.equalsIgnoreCase("admin"))
+            return Collections.singletonList(Role.ROLE_ADMIN);
+        else{
+            return Collections.singletonList(Role.ROLE_WORKER);
+        }
     }
 
 }

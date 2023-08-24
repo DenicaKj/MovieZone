@@ -28,4 +28,14 @@ public class Discount {
     String code;
     String type;
     Integer percent;
+
+    public Discount() {
+    }
+
+    public Discount(LocalDate validity, String code, String type, Integer percent) {
+        this.validity = validity;
+        this.code = code;
+        this.type = type;
+        this.percent = percent;
+    }
 }

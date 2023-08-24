@@ -1,2 +1,11 @@
-package com.example.moviezone.model;public enum GenreEnum {
+package com.example.moviezone.model.enums;
+
+public enum GenreEnum {
+    Animation,
+    Adventure,
+    Comedy,
+    Fantasy,
+    Crime,
+    Drama,
+    Thriller
 }

@@ -2,6 +2,7 @@ package com.example.moviezone.web;
 
 
 import com.example.moviezone.model.*;
+import com.example.moviezone.model.enums.GenreEnum;
 import com.example.moviezone.model.exceptions.PasswordsDoNotMatchException;
 
 import com.example.moviezone.model.exceptions.UserNotFoundException;
@@ -9,6 +10,7 @@ import com.example.moviezone.model.manytomany.ProjectionIsPlayedInRoom;
 
 import com.example.moviezone.model.procedures.FilmsReturnTable;
 
+import com.example.moviezone.model.procedures.TicketsCancelClass;
 import com.example.moviezone.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,8 +51,9 @@ private final SeatService seatService;
 private final CustomerService customerService;
 private final Projection_RoomService projectionRoomService;
 private final CustomerIsInterestedInEventService customerIsInterestedInEventService;
+private final DiscountService discountService;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService, SeatService seatService, CustomerService customerService, Projection_RoomService projectionRoomService, CustomerIsInterestedInEventService customerIsInterestedInEventService)
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService, SeatService seatService, CustomerService customerService, Projection_RoomService projectionRoomService, CustomerIsInterestedInEventService customerIsInterestedInEventService, DiscountService discountService)
     {
 
         this.filmService = filmService;
@@ -66,6 +72,7 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
         this.customerService = customerService;
         this.projectionRoomService = projectionRoomService;
         this.customerIsInterestedInEventService = customerIsInterestedInEventService;
+        this.discountService = discountService;
     }
 
     @GetMapping
@@ -126,7 +133,7 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
         model.addAttribute("projection",projection);
         model.addAttribute("category",category);
 
-        List<Seat> seats=seatService.findAllByRoomAndCategory(projectionRoomService.getRoomByProjection(projection.getId_projection()).get(0),category);
+        List<Seat> seats=seatService.findAllByRoomAndCategory(projection,projectionRoomService.getRoomByProjection(projection.getId_projection()).get(0),category);
         model.addAttribute("seats",seats);
         model.addAttribute("bodyContent", "seats");
 
@@ -230,6 +237,7 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
     @Transactional
     public String getFilmsPage1(Model model,@RequestParam(required = false) Integer id_cinema){
         model.addAttribute("cinemas",cinemaService.findAllCinemas());
+        model.addAttribute("genres", GenreEnum.values());
         if (id_cinema!=null) {
             model.addAttribute("films",filmService.getFilmsFromCinema(id_cinema));
         }else{
@@ -271,19 +279,43 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
     public  String getMyTicketsPage(Model model,HttpServletRequest request)
     {
         Customer customer=customerService.findByUsername(request.getRemoteUser());
-        model.addAttribute("tickets",ticketService.findAllByCustomer(customer));
+        List<Ticket> tickets = ticketService.findAllByCustomer(customer);
+        List<TicketsCancelClass> ticketsCancelClass = new ArrayList<>();
+        LocalDateTime oneDayLater = LocalDateTime.now().plus(1, ChronoUnit.DAYS);
+        for (int i = 0; i < tickets.size(); i++) {
+            if(tickets.get(i).getProjection().getDate_time_start().isAfter(oneDayLater)){
+                ticketsCancelClass.add(new TicketsCancelClass(tickets.get(i),true));
+            }else{
+                ticketsCancelClass.add(new TicketsCancelClass(tickets.get(i),false));
+            }
+        }
+        model.addAttribute("tickets",ticketsCancelClass);
         model.addAttribute("bodyContent","myTickets");
         return "master-template";
     }
+
+    @PostMapping("/cancelTicket/{id}")
+    public String getSeats(@PathVariable Long id, Model model) {
+        ticketService.delete(id.intValue());
+        return "redirect:/myTickets";
+    }
+
     @GetMapping("/addProjection")
+    @Transactional
     public  String getAddProjectionPage(Model model)
     {
         model.addAttribute("films",filmService.findAllFilms());
+        model.addAttribute("projection_rooms", projectionRoomService.findAllProjectionRooms());
+        model.addAttribute("discounts",discountService.getValidDiscounts());
         model.addAttribute("bodyContent","addProjection");
         return "master-template";
     }
-
-
+    @GetMapping("/addDiscount")
+    public  String getAddDiscountPage(Model model)
+    {
+        model.addAttribute("bodyContent","addDiscount");
+        return "master-template";
+    }
     @GetMapping("/addEvent")
     public  String getAddEventPage(Model model)
     {
@@ -297,13 +329,25 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
         return "master-template";
     }
 
-    @PostMapping("/addP")
-    public String saveProjection(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date_time_start,
-                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date_time_end,
-                                 @RequestParam String type_of_technology,
-                                 @RequestParam Integer id_film)
+    @PostMapping("/addD")
+    public String saveEvent(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate validity,
+                            @RequestParam String type,
+                            @RequestParam String code,
+                            @RequestParam Integer percent)
     {
-        projectionService.save(date_time_start,date_time_end,type_of_technology,id_film);
+        discountService.save(code,type,validity,percent);
+        return "redirect:/home";
+    }
+
+    @PostMapping("/addP")
+    public String saveProjection(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date_time_start,
+                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date_time_end,
+                                 @RequestParam String type_of_technology,
+                                 @RequestParam Integer id_film,
+                                @RequestParam Integer id_room,
+                                @RequestParam Integer id_discount)
+    {
+        projectionService.save(date_time_start,date_time_end,type_of_technology,id_film,id_room,id_discount);
          return "redirect:/home";
     }
     @PostMapping("/addE")
@@ -349,13 +393,14 @@ private final CustomerIsInterestedInEventService customerIsInterestedInEventServ
         model.addAttribute("bodyContent","addEventToCinema");
         return "master-template";
     }
+
     @PostMapping("/addCinemaOrganizesEvent")
     public String saveCinemaOrganizesEvent(@RequestParam Integer id_cinema,
                                            @RequestParam Integer id_event)
     {
 
        cinemaOrganizesEventService.save(id_cinema,id_event);
-        return "redirect:/home";
+       return "redirect:/home";
     }
     @GetMapping("/addFilmToCinema")
     public  String getCinemaPlaysFilmPage(Model model)

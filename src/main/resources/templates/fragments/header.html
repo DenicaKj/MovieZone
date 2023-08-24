@@ -68,21 +68,30 @@
         <th:block sec:authorize="hasAuthority('ROLE_USER')">
             <li class="begin"><a href="/myTickets">Мои Карти</a></li>
         </th:block>
-        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
-        <li class="begin"><a href="/workers">Вработени</a></li>
-        </th:block>
-        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
-        <li class="begin"><a href="/addProjection">Нова Проекција</a></li>
-        </th:block>
-        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
-        <li class="begin"><a href="/addFilm">Нов Филм</a></li>
-        </th:block>
-        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
-        <li class="begin"><a href="/addEvent">Нов Настан</a></li>
+
+        <th:block sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${#request.getRemoteUser()}">
+            <li class="nav-item dropdown" style="width: 20px">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/workers">Вработени</a>
+                    <a class="dropdown-item" href="/addProjection">Нова Проекција</a>
+                    <a class="dropdown-item" href="/addFilm">Нов Филм</a>
+                    <a class="dropdown-item" href="/addEvent">Нов Настан</a>
+                    <a class="dropdown-item" href="/addDiscount">Нов Попуст</a>
+                </div>
+            </li>
         </th:block>
     </ul>
     <ul class="menu-right">
         <th:block sec:authorize="hasAuthority('ROLE_ADMIN')" th:if="${#request.getRemoteUser() != null}">
+            <li class="reg">
+                <a href="/profileWorker">
+                    <th:block th:text="${#request.getRemoteUser()}"></th:block>
+                </a>
+            </li>
+        </th:block>
+        <th:block sec:authorize="hasAuthority('ROLE_WORKER')" th:if="${#request.getRemoteUser() != null}">
             <li class="reg">
                 <a href="/profileWorker">
                     <th:block th:text="${#request.getRemoteUser()}"></th:block>

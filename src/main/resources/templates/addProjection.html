@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group">
                         <label for="date_time_start">Почетен датум</label>
-                        <input type="date"
+                        <input type="datetime-local"
                                class="form-control"
                                id="date_time_start"
                                name="date_time_start"
@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label for="date_time_end">Краен датум</label>
-                        <input type="date"
+                        <input type="datetime-local"
                                class="form-control"
                                id="date_time_end"
                                name="date_time_end"
@@ -40,7 +40,26 @@
                             </option>
                         </select>
                     </div>
-
+                    <div class="form-group">
+                        <label>Сала</label>
+                        <select name="id_room" id="pr" class="form-control">
+                            <option
+                                    th:each="pr : ${projection_rooms}"
+                                    th:value="${pr.id_room}"
+                                    th:text="${pr.projection_room_number} + '-' + ${pr.cinema.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Попуст</label>
+                        <select name="id_discount" id="f2" class="form-control">
+                            <option
+                                    th:each="d : ${discounts}"
+                                    th:value="${d.id_discount}"
+                                    th:text="${d.type} + '-' + ${d.percent}">
+                            </option>
+                        </select>
+                    </div>
                     <button style="background-color: #ff5019" id="submit" type="submit" class="btn btn-primary">Додади</button>
                 </form>
             </div>
