@@ -202,20 +202,26 @@
 <div>
     <form style="margin-left: 20px" th:action="@{'/home/events'}"
           th:method="GET">
+        <div class="row">
 
-        <div class="form-group">
-            <label style="color: white;font-size: 20px;font-weight: bold">Избери Кино:</label>
-            <select name="id_cinema" class="form-control" id="id_cinema">
-                <option th:value="${null}" text="Please Select"></option>
-                <option
-                        th:each="cinema : ${cinemas}"
-                        th:value="${cinema.getId_cinema()}"
-                        th:text="${cinema.getName()}">
-                </option>
-            </select>
+            <div class="form-group col-2">
+                <label style="color: white;font-size: 20px;font-weight: bold">Избери Кино:</label>
+                <select name="id_cinema" class="form-control" id="id_cinema">
+                    <option th:value="${null}" text="Please Select"></option>
+                    <option
+                            th:each="cinema : ${cinemas}"
+                            th:value="${cinema.getId_cinema()}"
+                            th:text="${cinema.getName()}">
+                    </option>
+                </select>
 
+
+            </div>
+            <div class="col-10 mt-4">
+                <button class="button" type="submit">Филтрирај</button>
+            </div>
         </div>
-        <button class="button" type="submit">Filter</button>
+
     </form>
 
 <div xmlns:th="http://www.thymeleaf.org">

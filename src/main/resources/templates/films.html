@@ -202,8 +202,9 @@
 <div>
     <form style="margin-left: 20px" th:action="@{'/home/films'}"
         th:method="GET">
+<div class="row">
 
-    <div class="form-group">
+    <div class="form-group col-2">
         <label style="color: white;font-size: 20px;font-weight: bold">Избери Кино:</label>
         <select name="id_cinema" class="form-control" id="id_cinema">
             <option th:value="${null}" text="Please Select"></option>
@@ -215,8 +216,8 @@
         </select>
 
     </div>
-        <div class="form-group">
-            <label style="color: white;font-size: 20px;font-weight: bold">Избери Жарн:</label>
+        <div class="form-group col-2">
+            <label style="color: white;font-size: 20px;font-weight: bold">Избери Жанр:</label>
             <select name="id_genre" class="form-control" id="id_genre">
                 <option th:value="${null}" text="Please Select"></option>
                 <option
@@ -227,7 +228,11 @@
             </select>
 
         </div>
-        <button class="button" type="submit">Filter</button>
+    <div class="col-8 mt-4">
+        <button class="button" type="submit">Филтрирај</button>
+
+    </div>
+</div>
     </form>
 
 <div xmlns:th="http://www.thymeleaf.org">
@@ -257,4 +262,5 @@
             </div>
             </div>
     </div>
+</div>
 </div>
