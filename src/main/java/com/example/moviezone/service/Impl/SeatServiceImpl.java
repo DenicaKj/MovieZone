@@ -42,15 +42,15 @@ public class SeatServiceImpl implements SeatService {
     public List<Seat> findAllByRoomAndCategory(Projection projection, Projection_Room projectionRoom, Category category) {
         List<Ticket> tickets=ticketService.findAllTickets();
         List<Seat> seats=seatRepository.findAllByCategoryAndProjection(category,projectionRoom);
-
+        List<Seat> pom = new ArrayList<>();
         for (int i = 0; i < tickets.size(); i++) {
             if(tickets.get(i).getProjection()==projection){
-                if(seats.contains(tickets.get(i).getSeat())){
-                    seats.remove(tickets.get(i).getSeat());
+                if(!seats.contains(tickets.get(i).getSeat())){
+                    pom.add(seats.get(i));
                 }
             }
         }
-        return seats;
+        return pom;
     }
 
     @Override

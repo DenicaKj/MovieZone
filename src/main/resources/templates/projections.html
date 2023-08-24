@@ -205,8 +205,8 @@
         <div class="form-group">
             <label style="color: white;font-size: 20px;font-weight: bold">Избери Кино:</label>
             <select name="id_cinema" class="form-control" id="id_cinema">
+                <option th:value="${null}" text="Please Select"></option>
                 <option
-                        th:selected="${cinemas.get(1)}"
                         th:each="cinema : ${cinemas}"
                         th:value="${cinema.getId_cinema()}"
                         th:text="${cinema.getName()}">

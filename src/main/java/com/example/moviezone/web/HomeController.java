@@ -235,15 +235,24 @@ private final DiscountService discountService;
 
     @GetMapping("/films")
     @Transactional
-    public String getFilmsPage1(Model model,@RequestParam(required = false) Integer id_cinema){
+    public String getFilmsPage1(Model model,@RequestParam(required = false) Integer id_cinema, @RequestParam(required = false) Integer id_genre){
         model.addAttribute("cinemas",cinemaService.findAllCinemas());
-        model.addAttribute("genres", GenreEnum.values());
+        List<GenreEnum> genres = List.of(GenreEnum.values());
+        model.addAttribute("genres", genres);
+        List<Film> films = filmService.findAllFilms();
         if (id_cinema!=null) {
-            model.addAttribute("films",filmService.getFilmsFromCinema(id_cinema));
-        }else{
-            List<FilmsReturnTable> pom=new LinkedList<>();
-            model.addAttribute("films",filmService.findAllFilms());
+            films = filmService.getFilmsFromCinema(id_cinema);
         }
+        if ( id_genre != null){
+            List<Film> pom= new ArrayList<>();
+            for (int i = 0; i < films.size(); i++) {
+                if(films.get(i).getGenre().contains(genres.get(id_genre).name().toLowerCase())){
+                   pom.add(films.get(i));
+                }
+            }
+            films=pom;
+        }
+        model.addAttribute("films",films);
         model.addAttribute("bodyContent","films");
         return "master-template";
     }
@@ -269,7 +278,6 @@ private final DiscountService discountService;
         if (id_cinema!=null) {
             model.addAttribute("events",eventService.getEventsFromCinema(id_cinema));
         }else{
-            List<FilmsReturnTable> pom=new LinkedList<>();
             model.addAttribute("events",eventService.getEventsNow());
         }
         model.addAttribute("bodyContent","events");
