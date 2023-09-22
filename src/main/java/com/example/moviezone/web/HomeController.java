@@ -11,6 +11,9 @@ import com.example.moviezone.model.manytomany.ProjectionIsPlayedInRoom;
 import com.example.moviezone.model.procedures.FilmsReturnTable;
 
 import com.example.moviezone.model.procedures.TicketsCancelClass;
+import com.example.moviezone.repository.CustomerCinemaReportRepository;
+import com.example.moviezone.repository.FilmReportRepository;
+import com.example.moviezone.repository.MonthlyCinemaReportRepository;
 import com.example.moviezone.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -52,8 +55,11 @@ private final CustomerService customerService;
 private final Projection_RoomService projectionRoomService;
 private final CustomerIsInterestedInEventService customerIsInterestedInEventService;
 private final DiscountService discountService;
+private final MonthlyCinemaReportRepository monthlyCinemaReportRepository;
+private final FilmReportRepository filmReportRepository;
+private final CustomerCinemaReportRepository customerCinemaReportRepository;
 
-    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService, SeatService seatService, CustomerService customerService, Projection_RoomService projectionRoomService, CustomerIsInterestedInEventService customerIsInterestedInEventService, DiscountService discountService)
+    public HomeController(FilmService filmService, UserService userService, ProjectionService projectionService, EventService eventService, TicketService ticketService, WorkerService workerService, CustomerRatesFilmService customerRatesFilmService, CinemaService cinemaService, CinemaOrganizesEventService cinemaOrganizesEventService, CinemaPlaysFilmService cinemaPlaysFilmService, ProjectionIsPlayedInRoomService projectionIsPlayedInRoomService, CategoryService categoryService, SeatService seatService, CustomerService customerService, Projection_RoomService projectionRoomService, CustomerIsInterestedInEventService customerIsInterestedInEventService, DiscountService discountService, MonthlyCinemaReportRepository monthlyCinemaReportRepository, FilmReportRepository filmReportRepository, CustomerCinemaReportRepository customerCinemaReportRepository)
     {
 
         this.filmService = filmService;
@@ -73,6 +79,9 @@ private final DiscountService discountService;
         this.projectionRoomService = projectionRoomService;
         this.customerIsInterestedInEventService = customerIsInterestedInEventService;
         this.discountService = discountService;
+        this.monthlyCinemaReportRepository = monthlyCinemaReportRepository;
+        this.filmReportRepository = filmReportRepository;
+        this.customerCinemaReportRepository = customerCinemaReportRepository;
     }
 
     @GetMapping
@@ -505,5 +514,26 @@ private final DiscountService discountService;
         Event event=eventService.getEventById(id).get();
         customerIsInterestedInEventService.delete(customer,event);
         return "redirect:/profileUser";
+    }
+
+    @GetMapping("/cinemaMonthlyReport")
+    public String getCinemaMonthlyInfo(Model model){
+        model.addAttribute("data",monthlyCinemaReportRepository.findAll());
+        model.addAttribute("bodyContent","monthlyCinemaReport");
+        return "master-template";
+    }
+
+    @GetMapping("/filmReport")
+    public String getFilmInfo(Model model){
+        model.addAttribute("data",filmReportRepository.findAll());
+        model.addAttribute("bodyContent","filmReport");
+        return "master-template";
+    }
+
+    @GetMapping("/customerCinemaReport")
+    public String getCustomerCinemaInfo(Model model){
+        model.addAttribute("data",customerCinemaReportRepository.findAll());
+        model.addAttribute("bodyContent","customerCinemaReport");
+        return "master-template";
     }
 }

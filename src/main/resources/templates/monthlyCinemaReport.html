@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div>
+    <h3 class="mt-3 mb-3" style="color: white">Извештај за сите кина, на месечно ниво, колку карти се пордадени и вкупниот профит во предходната година</h3>
+    <table class="table table-bordered mt-3">
+        <thead class="thead-dark">
+        <tr style="color: white">
+            <th scope="col">Име</th>
+            <th scope="col">Прв Месец</th>
+            <th scope="col">Втор Месец</th>
+            <th scope="col">Трет Месец</th>
+            <th scope="col">Четврт Месец</th>
+            <th scope="col">Петти Месец</th>
+            <th scope="col">Шести Месец</th>
+            <th scope="col">Седми Месец</th>
+            <th scope="col">Осми Месец</th>
+            <th scope="col">Деветти Месец</th>
+            <th scope="col">Десети Месец</th>
+            <th scope="col">Единаести Месец</th>
+            <th scope="col">Дванаести Месец</th>
+            <th scope="col">Вкупен Промет</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="d : ${data}" style="color: white">
+            <td th:text="${d.name}"></td>
+            <td th:text="${d.prvi_mesec}"></td>
+            <td th:text="${d.vtori_mesec}"></td>
+            <td th:text="${d.tretti_mesec}"></td>
+            <td th:text="${d.cetvrti_mesec}"></td>
+            <td th:text="${d.petti_mesec}"></td>
+            <td th:text="${d.sesti_mesec}"></td>
+            <td th:text="${d.sedmi_mesec}"></td>
+            <td th:text="${d.osmi_mesec}"></td>
+            <td th:text="${d.devetti_mesec}"></td>
+            <td th:text="${d.desetti_mesec}"></td>
+            <td th:text="${d.edinaesti_mesec}"></td>
+            <td th:text="${d.dvanaesti_mesec}"></td>
+            <td th:text="${d.vkupen_promet}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

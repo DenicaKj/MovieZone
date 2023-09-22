@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div>
+    <h3 class="mt-3 mb-3" style="color: white">Извештај за секој клиент, за секое кино, колку карти има купено во секое кино, колку пари има потрошено во секое кино, и колку кодови за попуст имаат искористено во секое кино</h3>
+    <table class="table table-bordered mt-3">
+        <thead class="thead-dark">
+        <tr style="color: white">
+            <th scope="col">Id Корисник</th>
+            <th scope="col">Id Кино</th>
+            <th scope="col">Карти</th>
+            <th scope="col">Вкупна сума</th>
+            <th scope="col">Попусти</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="d : ${data}" style="color: white">
+            <td th:text="${d?.id_customer}"></td>
+            <td th:text="${d?.id_cinema}"></td>
+            <td th:text="${d.tickets}"></td>
+            <td th:text="${d.sum}"></td>
+            <td th:text="${d.discounts}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

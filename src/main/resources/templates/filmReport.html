@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div>
+    <h3 class="mt-3 mb-3" style="color: white">Извештај за секој филм, колку карти се продадени и колкав профит има секој филм направено, колку различни клиенти купиле карта за филмот и колку рејтинзи има секој филм</h3>
+    <table class="table table-bordered mt-3">
+        <thead class="thead-dark">
+        <tr style="color: white">
+            <th scope="col">Id Филм</th>
+            <th scope="col">Карти</th>
+            <th scope="col">Профит</th>
+            <th scope="col">Корисници</th>
+            <th scope="col">Оценувања</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="d : ${data}" style="color: white">
+            <td th:text="${d.id_film}"></td>
+            <td th:text="${d.tickets}"></td>
+            <td th:text="${d.profit}"></td>
+            <td th:text="${d.customers}"></td>
+            <td th:text="${d.raitings}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
