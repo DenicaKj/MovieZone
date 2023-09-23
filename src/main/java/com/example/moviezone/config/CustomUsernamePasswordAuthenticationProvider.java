@@ -48,4 +48,5 @@ public class CustomUsernamePasswordAuthenticationProvider implements Authenticat
     public boolean supports(Class<?> aClass) {
         return aClass.equals(UsernamePasswordAuthenticationToken.class);
     }
+
 }

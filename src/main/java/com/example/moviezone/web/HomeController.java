@@ -136,13 +136,13 @@ private final CustomerCinemaReportRepository customerCinemaReportRepository;
     @GetMapping("/getSeats/{id}")
     @Transactional
     public String getSeats(@PathVariable Long id, Model model,@RequestParam Long id_category,@RequestParam Long film) {
-        Category category=categoryService.getCategoryById(id_category.intValue()).get();
+        Category category=categoryService.getCategoryById(id_category.intValue()).orElse(null);
         Projection projection=projectionService.findById(id.intValue());
-        model.addAttribute("film",filmService.getFilmById(film).get());
+        model.addAttribute("film",filmService.getFilmById(film).orElse(null));
         model.addAttribute("projection",projection);
         model.addAttribute("category",category);
 
-        List<Seat> seats=seatService.findAllByRoomAndCategory(projection,projectionRoomService.getRoomByProjection(projection.getId_projection()).get(0),category);
+        List<Seat> seats=seatService.findAllByRoomAndCategory(projection,projectionRoomService.getRoomByProjection(projection.getId_projection()).stream().findFirst().orElse(null),category);
         model.addAttribute("seats",seats);
         model.addAttribute("bodyContent", "seats");
 
@@ -168,7 +168,7 @@ private final CustomerCinemaReportRepository customerCinemaReportRepository;
     {
 //        User user = null;
         try {
-           User user=userService.login(username,password);
+            User user=userService.login(username,password);
         System.out.println(user.getFirst_name());
         request.getSession().setAttribute("user", user);
         //            model.addAttribute("user",user);
@@ -300,10 +300,14 @@ private final CustomerCinemaReportRepository customerCinemaReportRepository;
         List<TicketsCancelClass> ticketsCancelClass = new ArrayList<>();
         LocalDateTime oneDayLater = LocalDateTime.now().plus(1, ChronoUnit.DAYS);
         for (int i = 0; i < tickets.size(); i++) {
-            if(tickets.get(i).getProjection().getDate_time_start().isAfter(oneDayLater)){
-                ticketsCancelClass.add(new TicketsCancelClass(tickets.get(i),true));
-            }else{
-                ticketsCancelClass.add(new TicketsCancelClass(tickets.get(i),false));
+            if (tickets.get(i).getProjection() != null && tickets.get(i).getProjection().getDate_time_start() != null) {
+                if (tickets.get(i).getProjection().getDate_time_start().isAfter(oneDayLater)) {
+                    ticketsCancelClass.add(new TicketsCancelClass(tickets.get(i), true));
+                } else {
+                    ticketsCancelClass.add(new TicketsCancelClass(tickets.get(i), false));
+                }
+            } else {
+                continue;
             }
         }
         model.addAttribute("tickets",ticketsCancelClass);
@@ -477,7 +481,7 @@ private final CustomerCinemaReportRepository customerCinemaReportRepository;
     {
         Customer customer=customerService.findByUsername(request.getRemoteUser());
         System.out.println(customer.getFirst_name());
-        customerRatesFilmService.addRating(customer.getId_user(),Integer.valueOf(id.intValue()),Integer.valueOf(rate.intValue()));
+        customerRatesFilmService.addRating(customer.getId_user(), id.intValue(), rate.intValue());
         return "redirect:/home/getFilm/"+id;
     }
     @GetMapping("/profileWorker")
