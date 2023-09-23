@@ -4,6 +4,7 @@ import com.example.moviezone.model.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface TicketService {
     List<Ticket> findAllTickets();
@@ -13,4 +14,5 @@ public interface TicketService {
     Ticket save(long price,Customer customer);
     Integer priceForTicket(int id);
     void delete(int id);
+    Optional<Ticket> getById(int id);
 }

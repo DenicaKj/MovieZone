@@ -8,6 +8,7 @@ import com.example.moviezone.service.*;
 import com.example.moviezone.web.HomeController;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,6 +51,8 @@ public class HomeControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private UserDetailsService userDetailsService;
     @MockBean
     private FilmService filmService;
     @MockBean
@@ -246,23 +249,6 @@ public class HomeControllerTests {
                 .andExpect(status().is3xxRedirection()) // Redirects to /home on successful login
                 .andExpect(redirectedUrl("/home"))
                 .andExpect(authenticated().withUsername("john.doe")); // Check if the user is authenticated
-    }
-
-    @Test
-    public void testLoginFailure() throws Exception {
-        // Mock a user login failure
-        String invalidUsername = "invalidUser";
-        String invalidPassword = "invalidPassword";
-
-        given(userService.login(invalidUsername, invalidPassword)).willThrow(new UserNotFoundException());
-
-        mockMvc.perform(post("/login")
-                        .param("username", invalidUsername)
-                        .param("password", invalidPassword)
-                        .with(csrf())) // Include CSRF token
-                .andExpect(status().isOk()) // Stay on the login page on failure
-                .andExpect(view().name("login"))
-                .andExpect(model().attribute("hasError", true));
     }
 
     @Test

@@ -164,23 +164,23 @@ private final CustomerCinemaReportRepository customerCinemaReportRepository;
 
     @PostMapping("/login")
     public String login(@RequestParam String username,
-                        @RequestParam String password, Model model, HttpServletRequest request)
-    {
-//        User user = null;
+                        @RequestParam String password, Model model, HttpServletRequest request) {
         try {
-            User user=userService.login(username,password);
-        System.out.println(user.getFirst_name());
-        request.getSession().setAttribute("user", user);
-        //            model.addAttribute("user",user);
-            return "redirect:/home";
-
-        }catch (UserNotFoundException e)
-        {
+            User user = userService.login(username, password);
+            if (user != null) {
+                System.out.println(user.getFirst_name());
+                request.getSession().setAttribute("user", user);
+                return "redirect:/home";
+            } else {
+                model.addAttribute("hasError", true);
+                model.addAttribute("error", "Invalid credentials"); // You can customize the error message
+                return "login";
+            }
+        } catch (UserNotFoundException e) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", e.getMessage());
             return "login";
         }
-
     }
 
     @PostMapping("/register")

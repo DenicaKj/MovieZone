@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -45,11 +46,18 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Integer priceForTicket(int id) {
-        return ticketRepository.getPriceForTicket(id);
+        return Math.toIntExact(ticketRepository.findById(id).get().getPrice());
     }
 
     @Override
     public void delete(int id) {
         ticketRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Ticket> getById(int id) {
+        return ticketRepository.findById(id);
+    }
+
+
 }

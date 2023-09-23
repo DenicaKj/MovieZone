@@ -57,6 +57,15 @@ public class Ticket {
         this.seat = seat;
     }
 
+    public Ticket(long price, LocalDate date_reserved, Customer customer, Projection projection, Discount discount, Seat seat) {
+        this.price=price;
+        this.date_reserved = date_reserved;
+        this.customer = customer;
+        this.projection = projection;
+        this.discount = discount;
+        this.seat = seat;
+    }
+
     public Ticket() {
 
     }
