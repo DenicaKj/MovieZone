@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(String first_name, String last_name, String username, String email, String number, String password, Role role) {
+    public User register(String first_name, String last_name, String username, String email, String number, String password, Role role) {
 //       if(!password.equals(repeatedPassword))
 //           throw new PasswordsDoNotMatchException();
 //       if (username==null || username.isEmpty()  || password==null || password.isEmpty())
@@ -54,13 +54,13 @@ public class UserServiceImpl implements UserService {
         {
 //            User user= new User(passwordEncoder.encode(password),first_name,last_name,username,email,number);
 //            workerRepository.save((Worker) user);
-            userRepository.save(new Worker(password,first_name,last_name,email,number,username));
+            return userRepository.save(new Worker(password,first_name,last_name,email,number,username));
         }
         else
        {
 //           Customer customer=new Customer(passwordEncoder.encode(password),first_name,last_name,username,email,number);
 //           customerRepository.save(customer);
-           userRepository.save(new Customer(password,first_name,last_name,email,number,username));
+           return userRepository.save(new Customer(password,first_name,last_name,email,number,username));
 
        }
 

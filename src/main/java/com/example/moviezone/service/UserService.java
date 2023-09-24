@@ -11,7 +11,7 @@ public interface UserService {
     User findById(Integer user_id);
     User findByUsername(String username);
 
-    void register(String first_name, String last_name,String username, String email, String number, String password, Role role);
+    User register(String first_name, String last_name,String username, String email, String number, String password, Role role);
     User login(String username,String password);
     void registerWorker(String first_name, String last_name, String username, String email, String number, String password, String position, String work_hours_from, String work_hours_to, Cinema cinema);
 }

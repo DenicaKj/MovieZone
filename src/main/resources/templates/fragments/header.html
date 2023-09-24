@@ -100,7 +100,7 @@
         </th:block>
         <th:block sec:authorize="hasAuthority('ROLE_USER')" th:if="${#request.getRemoteUser() != null}">
             <li class="reg">
-                <a href="/profileUser">
+                <a id="username" href="/profileUser">
                     <th:block th:text="${#request.getRemoteUser()}"></th:block>
                 </a>
             </li>
@@ -110,13 +110,13 @@
         </th:block>
         <th:block th:if="${#request.getRemoteUser() != null}">
             <li class="reg" sec:authorize="isAuthenticated()">
-                <a  href="/logout">
+                <a id="logout"  href="/logout">
                     Одјави се
                 </a>
             </li>
         </th:block>
         <th:block th:if="${#request.getRemoteUser() == null}">
-            <li class="reg"><a href="/login">Најава</a></li>
+            <li class="reg"><a id="loginPage" href="/login">Најава</a></li>
         </th:block>
     </ul>
 </nav></div>
