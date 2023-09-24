@@ -48,18 +48,14 @@ public class TicketRepositoryTest {
 
     @Test
     public void testUpdateTicket() {
-        // Create a Ticket and save it
         Ticket ticket = new Ticket(1000L, LocalDate.now(), new Customer(), new Projection(), new Discount(), new Seat());
         ticket = ticketRepository.save(ticket);
 
-        // Update the Ticket's price
         ticket.setPrice(1200L);
         ticket = ticketRepository.save(ticket);
 
-        // Find the updated Ticket by ID
         Ticket updatedTicket = ticketRepository.findById(ticket.getId_ticket()).orElse(null);
 
-        // Verify that the Ticket was updated
         assertNotNull(updatedTicket);
         assertEquals(1200L, updatedTicket.getPrice());
     }

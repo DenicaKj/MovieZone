@@ -15,6 +15,7 @@ import com.example.moviezone.repository.CustomerCinemaReportRepository;
 import com.example.moviezone.repository.FilmReportRepository;
 import com.example.moviezone.repository.MonthlyCinemaReportRepository;
 import com.example.moviezone.service.*;
+import org.eclipse.jetty.util.DateCache;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -298,6 +299,14 @@ private final CustomerCinemaReportRepository customerCinemaReportRepository;
         Customer customer=customerService.findByUsername(request.getRemoteUser());
         List<Ticket> tickets = ticketService.findAllByCustomer(customer);
         List<TicketsCancelClass> ticketsCancelClass = new ArrayList<>();
+        ticketsCancelClass=ticketsCancelClasses(tickets);
+        model.addAttribute("tickets",ticketsCancelClass);
+        model.addAttribute("bodyContent","myTickets");
+        return "master-template";
+    }
+
+    public List<TicketsCancelClass> ticketsCancelClasses(List<Ticket> tickets){
+        List<TicketsCancelClass> ticketsCancelClass = new ArrayList<>();
         LocalDateTime oneDayLater = LocalDateTime.now().plus(1, ChronoUnit.DAYS);
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getProjection() != null && tickets.get(i).getProjection().getDate_time_start() != null) {
@@ -310,9 +319,7 @@ private final CustomerCinemaReportRepository customerCinemaReportRepository;
                 continue;
             }
         }
-        model.addAttribute("tickets",ticketsCancelClass);
-        model.addAttribute("bodyContent","myTickets");
-        return "master-template";
+        return ticketsCancelClass;
     }
 
     @PostMapping("/cancelTicket/{id}")

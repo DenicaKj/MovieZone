@@ -140,18 +140,14 @@ public class TicketServiceTest {
         Ticket ticket=new Ticket();
         ticket.setId_ticket(1);
 
-        Integer mockPrice = 100; // Provide a valid mock price
+        Integer mockPrice = 100;
         ticket.setPrice(mockPrice);
-        // Configure the mock behavior for the repository
         when(ticketRepository.findById(ticket.getId_ticket())).thenReturn(Optional.of(ticket));
 
-        // Call the service method
         Integer result = ticketService.priceForTicket(ticket.getId_ticket());
 
-        // Use assertions to verify the result
         assertNotNull(result);
         assertEquals(mockPrice, result);
-        // Additional assertions as needed
     }
 
     @Test
