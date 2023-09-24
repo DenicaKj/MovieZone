@@ -137,15 +137,16 @@ public class TicketServiceTest {
 
     @Test
     public void testPriceForTicket() {
-        // Define input data for the method
-        int ticketId = 1; // Provide a valid ticket ID
-        Integer mockPrice = 100; // Provide a valid mock price
+        Ticket ticket=new Ticket();
+        ticket.setId_ticket(1);
 
+        Integer mockPrice = 100; // Provide a valid mock price
+        ticket.setPrice(mockPrice);
         // Configure the mock behavior for the repository
-        when(ticketRepository.getPriceForTicket(ticketId)).thenReturn(mockPrice);
+        when(ticketRepository.findById(ticket.getId_ticket())).thenReturn(Optional.of(ticket));
 
         // Call the service method
-        Integer result = ticketService.priceForTicket(ticketId);
+        Integer result = ticketService.priceForTicket(ticket.getId_ticket());
 
         // Use assertions to verify the result
         assertNotNull(result);

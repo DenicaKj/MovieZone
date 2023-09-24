@@ -132,5 +132,4 @@ public class UserServiceIntegrationTest {
         assertThrows(UserNotFoundException.class, () -> userService.login(invalidUsername, invalidPassword));
     }
 
-    // Additional test methods for other operations can be added here
 }
