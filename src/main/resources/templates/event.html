@@ -54,7 +54,7 @@
             <th:block sec:authorize="hasAuthority('ROLE_USER')" th:if="${#request.getRemoteUser() != null}">
             <form th:action="@{'/home/addInterestedEvent/{id}' (id=${event.id_event})}"
                   th:method="POST">
-                <button class="button" type="submit">Додади Заинтересиран</button>
+                <button class="button" id="submit" type="submit">Додади Заинтересиран</button>
             </form>
             </th:block>
         </div>
