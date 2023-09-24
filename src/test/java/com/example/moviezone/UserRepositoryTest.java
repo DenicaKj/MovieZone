@@ -2,6 +2,7 @@ package com.example.moviezone;
 
 import com.example.moviezone.model.User;
 import com.example.moviezone.repository.UserRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +92,23 @@ public class UserRepositoryTest {
         assertEquals(3, userRepository.count());
     }
 
-    // Add more test methods to cover other repository operations
+    @Test
+    public void testUsernameNotNull() {
+        // Attempt to save a user with a null username
+        User user = new User();
+        assertThrows(org.springframework.dao.DataIntegrityViolationException.class, () -> userRepository.save(user));
+    }
+
+    @Test
+    public void testUsernameUnique() {
+        // Save a user with a unique username
+        User user1 = new User();
+        user1.setUsername("uniqueUsername");
+        userRepository.save(user1);
+
+        // Attempt to save another user with the same username (non-unique)
+        User user2 = new User();
+        user2.setUsername("uniqueUsername");
+        assertThrows(org.springframework.dao.DataIntegrityViolationException.class, () -> userRepository.save(user2));
+    }
 }

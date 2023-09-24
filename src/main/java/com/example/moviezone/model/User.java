@@ -29,6 +29,7 @@ public class User implements UserDetails {
     String last_name;
     String address;
     String contact_number;
+    @Column(unique=true,nullable = false)
     String username;
     LocalDate date_created;
 
